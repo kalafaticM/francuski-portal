@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Français Quotidien — Svakodnevni Francuski</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --midnight: #162032;
+    --cream: #f5eedc;
+    --warm: #e8dcc8;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --accent: #d4654a;
+    --blue-soft: #4a7fb5;
+    --green-soft: #4a8c6a;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--navy);
+    color: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--midnight) 0%, #1a2c44 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .flag-bar {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 1.2rem;
+  }
+  .flag-bar span {
+    width: 28px; height: 6px; border-radius: 2px;
+    display: inline-block;
+  }
+  .fr-blue { background: #002395; }
+  .fr-white { background: #ffffff; }
+  .fr-red { background: #ed2939; }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+  header h1 em {
+    font-style: italic;
+    color: var(--cream);
+  }
+  header .subtitle {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: rgba(245,238,220,0.65);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .badge-row {
+    display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+  .badge {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--midnight);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    padding: 0 1rem;
+    position: sticky; top: 0; z-index: 100;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-inner {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+    margin: 0 auto;
+    max-width: 1100px;
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    color: rgba(245,238,220,0.55);
+    padding: 1rem 1.2rem;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.25s;
+    display: flex; align-items: center; gap: 0.45rem;
+  }
+  .nav-btn:hover { color: var(--cream); }
+  .nav-btn.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+  .nav-icon { font-size: 1.1rem; }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .situation {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .situation.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SITUATION HEADER ── */
+  .sit-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+  .sit-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 8px rgba(201,168,76,0.4));
+  }
+  .sit-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--gold-light);
+  }
+  .sit-header p {
+    margin-top: 0.4rem;
+    color: rgba(245,238,220,0.65);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* ── GRID ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  /* ── DIALOGUE ── */
+  .dialogue { display: flex; flex-direction: column; gap: 0.8rem; }
+  .dl-line { display: flex; gap: 0.8rem; align-items: flex-start; }
+  .dl-who {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 0.15rem;
+    min-width: 40px;
+    text-align: center;
+  }
+  .dl-who.b { color: var(--blue-soft); background: rgba(74,127,181,0.12); border-color: rgba(74,127,181,0.3); }
+  .dl-content {}
+  .dl-fr {
+    font-size: 0.98rem;
+    color: var(--cream);
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .dl-sr {
+    font-size: 0.82rem;
+    color: rgba(245,238,220,0.55);
+    margin-top: 0.15rem;
+    line-height: 1.4;
+  }
+
+  /* ── PHRASE TABLE ── */
+  .phrase-table { width: 100%; border-collapse: collapse; }
+  .phrase-table tr { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .phrase-table tr:last-child { border-bottom: none; }
+  .phrase-table td {
+    padding: 0.6rem 0.4rem;
+    vertical-align: top;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .phrase-table .fr-cell {
+    color: var(--cream);
+    font-style: italic;
+    width: 52%;
+    padding-right: 1rem;
+  }
+  .phrase-table .sr-cell { color: rgba(245,238,220,0.6); }
+
+  /* ── WHY ── */
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .why-list li {
+    background: rgba(201,168,76,0.07);
+    border-left: 3px solid var(--gold);
+    padding: 0.6rem 0.8rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(245,238,220,0.85);
+  }
+  .why-list li strong { color: var(--gold-light); font-style: italic; }
+
+  /* ── ERRORS ── */
+  .error-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .error-item {
+    background: rgba(212,101,74,0.08);
+    border: 1px solid rgba(212,101,74,0.25);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.87rem;
+    line-height: 1.6;
+  }
+  .error-wrong {
+    color: #e87a6a;
+    font-style: italic;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .error-right {
+    color: #6db88a;
+    font-style: italic;
+    display: flex; align-items: center; gap: 0.4rem;
+    margin-top: 0.25rem;
+  }
+  .error-note {
+    color: rgba(245,238,220,0.55);
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+  }
+  .tag-wrong { color: #e87a6a; font-weight: bold; font-style: normal; }
+  .tag-right { color: #6db88a; font-weight: bold; font-style: normal; }
+
+  /* ── VOCAB BOX ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 0.6rem;
+  }
+  .vocab-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 0.55rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  .vocab-fr { color: var(--cream); font-style: italic; }
+  .vocab-sr { color: rgba(245,238,220,0.5); font-size: 0.78rem; margin-top: 0.1rem; }
+
+  /* ── FULL WIDTH CARD ── */
+  .card-full {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .card-full h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: transparent;
+    z-index: 200;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* ── TOOLTIP ── */
+  .tip {
+    cursor: help;
+    border-bottom: 1px dashed rgba(201,168,76,0.5);
+    position: relative;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .sit-header { flex-direction: column; gap: 0.8rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    nav { padding: 0 0.5rem; }
+    .nav-btn { padding: 0.9rem 0.9rem; font-size: 0.8rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-wrap"><div class="progress-bar" id="pbar"></div></div>
+
+<header>
+  <div class="flag-bar">
+    <span class="fr-blue"></span><span class="fr-white"></span><span class="fr-red"></span>
+  </div>
+  <h1>Le Français <em>Quotidien</em></h1>
+  <div class="subtitle">Svakodnevni Francuski za Odrasle Polaznike</div>
+  <div class="badge-row">
+    <span class="badge">🎙 Dijalozi FR + SR</span>
+    <span class="badge">💡 Objašnjenja</span>
+    <span class="badge">⚠️ Tipične greške</span>
+    <span class="badge">📋 Korisne fraze</span>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner" id="navInner">
+    <button class="nav-btn active" onclick="show('kafic',this)"><span class="nav-icon">☕</span> Kafić</button>
+    <button class="nav-btn" onclick="show('restoran',this)"><span class="nav-icon">🍽️</span> Restoran</button>
+    <button class="nav-btn" onclick="show('kupovina',this)"><span class="nav-icon">🛍️</span> Kupovina</button>
+    <button class="nav-btn" onclick="show('posao',this)"><span class="nav-icon">💼</span> Posao</button>
+    <button class="nav-btn" onclick="show('doktor',this)"><span class="nav-icon">🏥</span> Doktor</button>
+    <button class="nav-btn" onclick="show('apoteka',this)"><span class="nav-icon">💊</span> Apoteka</button>
+    <button class="nav-btn" onclick="show('put',this)"><span class="nav-icon">🗺️</span> Put & Orijentacija</button>
+    <button class="nav-btn" onclick="show('prevoz',this)"><span class="nav-icon">🚆</span> Prevoz</button>
+    <button class="nav-btn" onclick="show('banka',this)"><span class="nav-icon">🏦</span> Banka</button>
+    <button class="nav-btn" onclick="show('hotel',this)"><span class="nav-icon">🏨</span> Hotel</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════ KAFIĆ ═══════════════════════════════ -->
+<div class="situation active" id="kafic">
+  <div class="sit-header">
+    <div class="sit-icon">☕</div>
+    <div>
+      <h2>Au Café — U Kafiću</h2>
+      <p>Naručivanje pića, plaćanje, small talk sa konobarom. Kafić je srce francuske kulture — <em>le café</em> je ritual, ne samo piće.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Bonjour ! Qu'est-ce que je vous sers ?</div><div class="dl-sr">Dobar dan! Šta vam poslužujem?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonjour ! Je voudrais un café crème, s'il vous plaît.</div><div class="dl-sr">Dobar dan! Hteo/htela bih kафé krem, molim vas.</div></div></div>
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Très bien. Et avec ça ?</div><div class="dl-sr">Odlično. I uz to?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Un verre d'eau, s'il vous plaît. C'est combien ?</div><div class="dl-sr">Čašu vode, molim. Koliko košta?</div></div></div>
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Deux euros cinquante. Vous payez comment ?</div><div class="dl-sr">Dva evra pedeset. Kako plaćate?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Par carte, s'il vous plaît. Gardez la monnaie.</div><div class="dl-sr">Karticom, molim. Zadržite kusur.</div></div></div>
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Merci beaucoup ! Bonne journée !</div><div class="dl-sr">Hvala puno! Lep dan!</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Korisne fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Je voudrais…</td><td class="sr-cell">Hteo/la bih…</td></tr>
+        <tr><td class="fr-cell">Un café serré / allongé</td><td class="sr-cell">Espreso / duža kafa</td></tr>
+        <tr><td class="fr-cell">Un café au lait</td><td class="sr-cell">Bela kafa</td></tr>
+        <tr><td class="fr-cell">L'addition, s'il vous plaît</td><td class="sr-cell">Račun, molim</td></tr>
+        <tr><td class="fr-cell">C'est inclus, le service ?</td><td class="sr-cell">Da li je servis uračunat?</td></tr>
+        <tr><td class="fr-cell">Une table pour deux</td><td class="sr-cell">Sto za dvoje</td></tr>
+        <tr><td class="fr-cell">Avez-vous du wifi ?</td><td class="sr-cell">Imate li wifi?</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Zašto se tako kaže</h3>
+      <ul class="why-list">
+        <li><strong>„Je voudrais"</strong> (kondicionál) je mnogo uljudnije od <strong>„Je veux"</strong> (sadašnje) — kao razlika između „hteo bih" i „hoću".</li>
+        <li><strong>„S'il vous plaît"</strong> — uvek dodaj! Francuzi cene formalnost čak i u kafiću.</li>
+        <li><strong>„Un café"</strong> u Francuskoj podrazumeva espreso — ako hoćeš nešto drugo, precizno reci.</li>
+        <li><strong>„Bonjour"</strong> pri ulasku je obavezno — ignorisati pozdrav smatra se nepristojnim.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je veux un café.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Je voudrais un café.</div>
+        <div class="error-note">„Vouloir" u sadašnjem vremenu zvuči grubo — kondicionál je standard za narudžbine.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Un café avec lait.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Un café au lait / Un café crème.</div>
+        <div class="error-note">Upotreba predloga: „au lait" (s mlekom), ne „avec lait" bez člana.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Donnez-moi l'addition.</div>
+        <div class="error-right"><span class="tag-right">✓</span> L'addition, s'il vous plaît.</div>
+        <div class="error-note">Imperativ bez „s'il vous plaît" može zvučati naredbenički. Kratka forma s molbom je prirodnija.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ RESTORAN ═══════════════════════════════ -->
+<div class="situation" id="restoran">
+  <div class="sit-header">
+    <div class="sit-icon">🍽️</div>
+    <div>
+      <h2>Au Restaurant — U Restoranu</h2>
+      <p>Rezervacija, narudžbina, alergije, plaćanje. Francuzi jedu sporo i s uživanjem — nemoj žuriti!</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonsoir ! J'ai une réservation au nom de Dupont.</div><div class="dl-sr">Dobro veče! Imam rezervaciju na ime Dupont.</div></div></div>
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Oui, par ici, s'il vous plaît. Voici la carte.</div><div class="dl-sr">Da, izvolite ovuda. Evo menija.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Qu'est-ce que vous recommandez comme plat du jour ?</div><div class="dl-sr">Šta preporučujete kao jelo dana?</div></div></div>
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Le saumon grillé avec légumes de saison — c'est excellent !</div><div class="dl-sr">Grilovani losos s povrćem sezone — odlično je!</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Je suis allergique aux noix. C'est sans noix ?</div><div class="dl-sr">Alergičan/na sam na orašaste plodove. Da li je bez njih?</div></div></div>
+      <div class="dl-line"><span class="dl-who">KON</span><div class="dl-content"><div class="dl-fr">Oui, tout à fait. Vous prenez du vin ?</div><div class="dl-sr">Da, potpuno. Uzimate li vino?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Un verre de blanc, s'il vous plaît. Et l'addition à la fin.</div><div class="dl-sr">Čašu belog, molim. I račun na kraju.</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Korisne fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Je voudrais réserver une table</td><td class="sr-cell">Hteo/la bih da rezervišem sto</td></tr>
+        <tr><td class="fr-cell">Pour ce soir / pour demain</td><td class="sr-cell">Za večeras / za sutra</td></tr>
+        <tr><td class="fr-cell">C'est quoi, le plat du jour ?</td><td class="sr-cell">Šta je jelo dana?</td></tr>
+        <tr><td class="fr-cell">Je suis végétarien(ne)</td><td class="sr-cell">Ja sam vegetarijanac/ka</td></tr>
+        <tr><td class="fr-cell">C'est délicieux !</td><td class="sr-cell">Odlično je! / Ukusno!</td></tr>
+        <tr><td class="fr-cell">On peut partager l'addition ?</td><td class="sr-cell">Možemo li podeliti račun?</td></tr>
+        <tr><td class="fr-cell">Saignant / à point / bien cuit</td><td class="sr-cell">Krvavo / srednje / dobro pečeno</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Zašto se tako kaže</h3>
+      <ul class="why-list">
+        <li><strong>„Entrée"</strong> u francuskom znači <strong>predjelo</strong> (ne glavno jelo) — česta konfuzija s engleskim!</li>
+        <li><strong>„La carte"</strong> = meni koji biraš slobodno; <strong>„le menu"</strong> = fiksni meni s više kurseva po ceni.</li>
+        <li><strong>„Bon appétit"</strong> kaže konobar ili domaćin — gosti ga ne govore prvi jedni drugima.</li>
+        <li>Tipping nije obavezan (servis je uračunat), ali je cenjen: ostavljaš sitniš na stolu.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je veux le menu, s'il vous plaît. (misleći na kartu)</div>
+        <div class="error-right"><span class="tag-right">✓</span> Je voudrais la carte, s'il vous plaît.</div>
+        <div class="error-note">„Menu" u FR = fiksni trokursni obrok; „carte" = à la carte meni s izborom.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> L'entrée principale, s'il vous plaît.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Le plat principal, s'il vous plaît.</div>
+        <div class="error-note">„Entrée" = predjelo (starter). Glavno jelo = „le plat" ili „le plat principal".</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je suis allergie aux noix.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Je suis allergique aux noix.</div>
+        <div class="error-note">Pridev „allergique" (ne imenica „allergie") uz „être".</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ KUPOVINA ═══════════════════════════════ -->
+<div class="situation" id="kupovina">
+  <div class="sit-header">
+    <div class="sit-icon">🛍️</div>
+    <div>
+      <h2>Les Courses — Kupovina</h2>
+      <p>Traženje veličine, pitanje za cenu, reklamacija, plaćanje. Od marché do grande surface.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who">PRD</span><div class="dl-content"><div class="dl-fr">Bonjour ! Je peux vous aider ?</div><div class="dl-sr">Dobar dan! Mogu li vam pomoći?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Oui, je cherche une veste en taille M.</div><div class="dl-sr">Da, tražim jaknu u veličini M.</div></div></div>
+      <div class="dl-line"><span class="dl-who">PRD</span><div class="dl-content"><div class="dl-fr">En quelle couleur ? On a du bleu marine et du gris.</div><div class="dl-sr">U kojoj boji? Imamo mornarsko plavo i sivo.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Le bleu, s'il vous plaît. C'est quel prix ?</div><div class="dl-sr">Plavo, molim. Koja je cena?</div></div></div>
+      <div class="dl-line"><span class="dl-who">PRD</span><div class="dl-content"><div class="dl-fr">Soixante-dix euros. Vous voulez l'essayer ?</div><div class="dl-sr">Sedamdeset evra. Želite da probate?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Oui, où sont les cabines d'essayage ?</div><div class="dl-sr">Da, gde su kabine za presvlačenje?</div></div></div>
+      <div class="dl-line"><span class="dl-who">PRD</span><div class="dl-content"><div class="dl-fr">Au fond à droite. Est-ce que ça vous va ?</div><div class="dl-sr">Na dnu desno. Da li vam odgovara?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">C'est un peu trop grand. Vous avez du S ?</div><div class="dl-sr">Malo je preveliko. Imate li S?</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Korisne fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Je cherche…</td><td class="sr-cell">Tražim…</td></tr>
+        <tr><td class="fr-cell">C'est combien ? / Quel est le prix ?</td><td class="sr-cell">Koliko košta?</td></tr>
+        <tr><td class="fr-cell">C'est trop cher</td><td class="sr-cell">Preskupo je</td></tr>
+        <tr><td class="fr-cell">Vous faites des remises ?</td><td class="sr-cell">Da li pravite popuste?</td></tr>
+        <tr><td class="fr-cell">Je peux échanger / rembourser ?</td><td class="sr-cell">Mogu li da zamenim / refundiram?</td></tr>
+        <tr><td class="fr-cell">Avez-vous ça en autre couleur ?</td><td class="sr-cell">Imate li to u drugoj boji?</td></tr>
+        <tr><td class="fr-cell">Je vais le prendre / Je ne le prends pas</td><td class="sr-cell">Uzimam to / Ne uzimam</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Zašto se tako kaže</h3>
+      <ul class="why-list">
+        <li><strong>„Ça vous va ?"</strong> znači i „pristaje vam?" (veličina/boja) i „odgovara vam?" (cena) — višeznačna fraza.</li>
+        <li><strong>Veličine</strong>: FR koristi EU sistem (36, 38, 40…) za odeću — američki/britanski XS/S/M/L/XL se razume, ali nije standardno.</li>
+        <li><strong>„Les soldes"</strong> (rasprodaja) su zakonski regulisane u Francuskoj — januarska i julska su najvažnije.</li>
+        <li><strong>„Vous"</strong> uvek u prodavnici, nikad „tu" sa prodavcem koga ne poznaješ.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> C'est combien le prix ?</div>
+        <div class="error-right"><span class="tag-right">✓</span> C'est combien ? / Quel est le prix ?</div>
+        <div class="error-note">„C'est combien le prix" je redudantno — ili jedno ili drugo.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je veux essayer la veste.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Est-ce que je peux essayer la veste ?</div>
+        <div class="error-note">U prodavnici se pita dozvola, ne izražava direktno „hoću".</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> La veste est trop grande pour moi.</div>
+        <div class="error-right"><span class="tag-right">✓</span> La veste est trop grande. / Elle est trop grande.</div>
+        <div class="error-note">„Pour moi" je suvišno u ovom kontekstu — se podrazumeva.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ POSAO ═══════════════════════════════ -->
+<div class="situation" id="posao">
+  <div class="sit-header">
+    <div class="sit-icon">💼</div>
+    <div>
+      <h2>Au Travail — Na Poslu</h2>
+      <p>Sastanak, telefonski razgovor, mejlovi. Profesionalni registar je neophodan — „vous" je pravilo.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Telefonski razgovor</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who">SEC</span><div class="dl-content"><div class="dl-fr">Cabinet Moreau, bonjour.</div><div class="dl-sr">Kancelarija Moreau, dobar dan.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonjour, je m'appelle Martin Kovač. Je voudrais parler à Madame Leclerc, s'il vous plaît.</div><div class="dl-sr">Dobar dan, zovem se Martin Kovač. Hteo bih da razgovaram s gospođom Leclerc, molim.</div></div></div>
+      <div class="dl-line"><span class="dl-who">SEC</span><div class="dl-content"><div class="dl-fr">C'est à quel sujet ?</div><div class="dl-sr">U vezi s čim?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">C'est au sujet de notre réunion de lundi prochain.</div><div class="dl-sr">U vezi s našim sastankom sledećeg ponedeljka.</div></div></div>
+      <div class="dl-line"><span class="dl-who">SEC</span><div class="dl-content"><div class="dl-fr">Ne quittez pas, je vous la passe.</div><div class="dl-sr">Ne spuštajte, ja vam je prebacujem.</div></div></div>
+      <div class="dl-line"><span class="dl-who">LEC</span><div class="dl-content"><div class="dl-fr">Leclerc, j'écoute.</div><div class="dl-sr">Leclerc, slušam.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonjour Madame, je vous appelle pour confirmer notre rendez-vous.</div><div class="dl-sr">Dobar dan gospođo, zovem vas da potvrdim naš termin.</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Mejl — fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Madame, Monsieur,</td><td class="sr-cell">Gospođo, Gospodine, (uvod mejla)</td></tr>
+        <tr><td class="fr-cell">Suite à notre entretien…</td><td class="sr-cell">Povodom našeg razgovora…</td></tr>
+        <tr><td class="fr-cell">Je me permets de vous contacter…</td><td class="sr-cell">Slobodam sebi da vam se obratim…</td></tr>
+        <tr><td class="fr-cell">Dans l'attente de votre réponse…</td><td class="sr-cell">U iščekivanju vašeg odgovora…</td></tr>
+        <tr><td class="fr-cell">Veuillez agréer mes salutations</td><td class="sr-cell">Izvolite primiti moje pozdrave (završnica)</td></tr>
+        <tr><td class="fr-cell">Cordialement,</td><td class="sr-cell">S poštovanjem, (manje formalno)</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>📋 Sastanak — fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Pouvons-nous fixer une réunion ?</td><td class="sr-cell">Možemo li zakazati sastanak?</td></tr>
+        <tr><td class="fr-cell">Êtes-vous disponible jeudi ?</td><td class="sr-cell">Da li ste slobodni u četvrtak?</td></tr>
+        <tr><td class="fr-cell">Je vous propose 14h.</td><td class="sr-cell">Predlažem 14h.</td></tr>
+        <tr><td class="fr-cell">Ça me convient parfaitement.</td><td class="sr-cell">To mi savršeno odgovara.</td></tr>
+        <tr><td class="fr-cell">Désolé(e), je suis pris(e).</td><td class="sr-cell">Žao mi je, zauzet/a sam.</td></tr>
+        <tr><td class="fr-cell">On peut reporter à…?</td><td class="sr-cell">Možemo li odložiti za…?</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Cher Monsieur Dupont, (u formalnom mejlu)</div>
+        <div class="error-right"><span class="tag-right">✓</span> Monsieur Dupont, (bez „Cher" u poslovnom kontekstu)</div>
+        <div class="error-note">„Cher/Chère" je za prijatelje i poznanike. Poslovni mejl počinje samo titulom i prezimenom.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je suis Martin. (po telefonu)</div>
+        <div class="error-right"><span class="tag-right">✓</span> Je m'appelle Martin Kovač.</div>
+        <div class="error-note">Po telefonu uvek puno ime — „Je suis" + ime zvuči neformalno i neidentifikovano.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Bonne chance ! (kolegi pred prezentaciju)</div>
+        <div class="error-right"><span class="tag-right">✓</span> Bonne chance ! (ispravno!) ili Bon courage !</div>
+        <div class="error-note">Obe fraze su u redu — ali „Bon courage" (doslovno: snage!) je tipično fr. ohrabrenje za teške situacije.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DOKTOR ═══════════════════════════════ -->
+<div class="situation" id="doktor">
+  <div class="sit-header">
+    <div class="sit-icon">🏥</div>
+    <div>
+      <h2>Chez le Médecin — Kod Doktora</h2>
+      <p>Opis simptoma, razumevanje dijagnoze, recepti. U Francuskoj je zdravstveni sistem kompleksan — bitno je znati prava pitanja.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who">DOK</span><div class="dl-content"><div class="dl-fr">Bonjour ! Qu'est-ce qui vous amène ?</div><div class="dl-sr">Dobar dan! Šta vas dovodi?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">J'ai mal à la gorge depuis trois jours et j'ai de la fièvre.</div><div class="dl-sr">Boli me grlo već tri dana i imam temperaturu.</div></div></div>
+      <div class="dl-line"><span class="dl-who">DOK</span><div class="dl-content"><div class="dl-fr">Vous toussez ? Vous avez du mal à avaler ?</div><div class="dl-sr">Kašljete? Teško vam je da gutate?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Oui, je tousse et j'ai un peu du mal à avaler. Je suis aussi très fatigué(e).</div><div class="dl-sr">Da, kašljem i malo mi je teško da gutam. Takođe sam veoma umoran/na.</div></div></div>
+      <div class="dl-line"><span class="dl-who">DOK</span><div class="dl-content"><div class="dl-fr">Je vais vous examiner. Ouvrez la bouche, s'il vous plaît.</div><div class="dl-sr">Pregledam vas. Otvorite usta, molim.</div></div></div>
+      <div class="dl-line"><span class="dl-who">DOK</span><div class="dl-content"><div class="dl-fr">C'est une angine. Je vous prescris des antibiotiques.</div><div class="dl-sr">To je angina. Propisujem vam antibiotike.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Combien de fois par jour dois-je les prendre ?</div><div class="dl-sr">Koliko puta dnevno treba da ih uzimam?</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Simptomi — fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">J'ai mal à la tête / au ventre</td><td class="sr-cell">Boli me glava / stomak</td></tr>
+        <tr><td class="fr-cell">J'ai de la fièvre (38°)</td><td class="sr-cell">Imam temperaturu (38°)</td></tr>
+        <tr><td class="fr-cell">Je me sens mal</td><td class="sr-cell">Loše mi je</td></tr>
+        <tr><td class="fr-cell">J'ai des nausées</td><td class="sr-cell">Mučnina mi je</td></tr>
+        <tr><td class="fr-cell">Je suis allergique à la pénicilline</td><td class="sr-cell">Alergičan/na sam na penicilin</td></tr>
+        <tr><td class="fr-cell">Depuis quand ? — Depuis lundi.</td><td class="sr-cell">Od kad? — Od ponedeljka.</td></tr>
+        <tr><td class="fr-cell">Ça fait combien de temps ?</td><td class="sr-cell">Koliko dugo traje?</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Zašto se tako kaže</h3>
+      <ul class="why-list">
+        <li><strong>„J'ai mal à…"</strong> + deo tela sa članom: <strong>„à la tête"</strong> (glava), <strong>„au dos"</strong> (leđa), <strong>„aux pieds"</strong> (noge) — ne bez člana!</li>
+        <li><strong>„Depuis"</strong> + sadašnje vreme = trajanje do sada: <em>„J'ai mal depuis lundi"</em> — na srpskom bi bio perfekt, na FR je présent.</li>
+        <li>U Francuskoj moraš imati <strong>médecin traitant</strong> (izabranog lekara) za potpunu refundaciju od sécu (sécurité sociale).</li>
+        <li><strong>„Ordonnance"</strong> = recept. Zeleni recept je za lekove koji se refundiraju, beli za privatne.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> J'ai mal tête.</div>
+        <div class="error-right"><span class="tag-right">✓</span> J'ai mal à la tête.</div>
+        <div class="error-note">Obavezno: „mal à" + određeni član + deo tela. Bez predloga i člana rečenica je negramatična.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> J'avais mal depuis lundi. (ako bol i dalje traje)</div>
+        <div class="error-right"><span class="tag-right">✓</span> J'ai mal depuis lundi.</div>
+        <div class="error-note">„Depuis" + sadašnje vreme kad radnja još traje! Imperfekt bi značio da je prošlo.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je prends les médicaments deux fois de jour.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Je prends les médicaments deux fois par jour.</div>
+        <div class="error-note">„Par jour" (po danu), ne „de jour". Isto važi: „par semaine", „par mois".</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ APOTEKA ═══════════════════════════════ -->
+<div class="situation" id="apoteka">
+  <div class="sit-header">
+    <div class="sit-icon">💊</div>
+    <div>
+      <h2>À la Pharmacie — U Apoteci</h2>
+      <p>Kupovina lekova, traženje saveta farmaceuta. Apotekari u Francuskoj mogu preporučiti lekove bez recepta — iskoristi ih!</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonjour ! J'aurais besoin d'un médicament contre le rhume.</div><div class="dl-sr">Dobar dan! Trebao bi mi lek protiv prehlade.</div></div></div>
+      <div class="dl-line"><span class="dl-who">FAR</span><div class="dl-content"><div class="dl-fr">Quels sont vos symptômes exactement ?</div><div class="dl-sr">Koji su tačno vaši simptomi?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">J'ai le nez bouché et des maux de tête. Pas de fièvre.</div><div class="dl-sr">Imam začepljen nos i glavobolju. Bez temperature.</div></div></div>
+      <div class="dl-line"><span class="dl-who">FAR</span><div class="dl-content"><div class="dl-fr">Je vous conseille ce décongestionnant. À prendre trois fois par jour.</div><div class="dl-sr">Preporučujem vam ovaj dekongestiv. Uzimati tri puta dnevno.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Est-ce que ça fait dormir ?</div><div class="dl-sr">Da li to izaziva pospanost?</div></div></div>
+      <div class="dl-line"><span class="dl-who">FAR</span><div class="dl-content"><div class="dl-fr">Non, c'est sans somnifère. Avez-vous une ordonnance ?</div><div class="dl-sr">Ne, bez somnifère. Imate li recept?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Non, c'est sans ordonnance ?</div><div class="dl-sr">Ne, da li je bez recepta?</div></div></div>
+      <div class="dl-line"><span class="dl-who">FAR</span><div class="dl-content"><div class="dl-fr">Oui, c'est en vente libre.</div><div class="dl-sr">Da, dostupno je u slobodnoj prodaji.</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Korisne fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Quelque chose contre…</td><td class="sr-cell">Nešto protiv…</td></tr>
+        <tr><td class="fr-cell">…la toux / la fièvre / la douleur</td><td class="sr-cell">…kašlja / temperature / bola</td></tr>
+        <tr><td class="fr-cell">C'est remboursé par la sécu ?</td><td class="sr-cell">Da li to refundira zdravstveno?</td></tr>
+        <tr><td class="fr-cell">Sans ordonnance / Sur ordonnance</td><td class="sr-cell">Bez recepta / Na recept</td></tr>
+        <tr><td class="fr-cell">Combien de comprimés par prise ?</td><td class="sr-cell">Koliko tableta po dozi?</td></tr>
+        <tr><td class="fr-cell">Est-ce que ça a des effets secondaires ?</td><td class="sr-cell">Da li ima nuspojava?</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Korisni pojmovi</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-fr">un comprimé</div><div class="vocab-sr">tableta</div></div>
+        <div class="vocab-item"><div class="vocab-fr">une gélule</div><div class="vocab-sr">kapsula</div></div>
+        <div class="vocab-item"><div class="vocab-fr">un sirop</div><div class="vocab-sr">sirup</div></div>
+        <div class="vocab-item"><div class="vocab-fr">une pommade</div><div class="vocab-sr">mast/krema</div></div>
+        <div class="vocab-item"><div class="vocab-fr">le dosage</div><div class="vocab-sr">doziranje</div></div>
+        <div class="vocab-item"><div class="vocab-fr">la posologie</div><div class="vocab-sr">uputstvo za upotrebu</div></div>
+        <div class="vocab-item"><div class="vocab-fr">à jeun</div><div class="vocab-sr">na prazan stomak</div></div>
+        <div class="vocab-item"><div class="vocab-fr">après les repas</div><div class="vocab-sr">posle obroka</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ PUT ═══════════════════════════════ -->
+<div class="situation" id="put">
+  <div class="sit-header">
+    <div class="sit-icon">🗺️</div>
+    <div>
+      <h2>S'orienter — Orijentacija i Pitanje Puta</h2>
+      <p>Traženje smera, razumevanje uputstava. Pariz može biti zbunjujući — evo kako da pitaš i razumeš odgovor.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Excusez-moi, monsieur. Je cherche la rue de Rivoli.</div><div class="dl-sr">Izvinite, gospodine. Tražim ulicu de Rivoli.</div></div></div>
+      <div class="dl-line"><span class="dl-who">GRĐ</span><div class="dl-content"><div class="dl-fr">Alors… vous allez tout droit jusqu'au carrefour.</div><div class="dl-sr">Dakle… idete pravo do raskrsnice.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Jusqu'au carrefour, d'accord.</div><div class="dl-sr">Do raskrsnice, razumem.</div></div></div>
+      <div class="dl-line"><span class="dl-who">GRĐ</span><div class="dl-content"><div class="dl-fr">Ensuite vous tournez à gauche. C'est la deuxième rue à droite.</div><div class="dl-sr">Zatim skrenete levo. To je druga ulica desno.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">C'est loin d'ici ? Combien de temps à pied ?</div><div class="dl-sr">Da li je daleko odavde? Koliko pešice?</div></div></div>
+      <div class="dl-line"><span class="dl-who">GRĐ</span><div class="dl-content"><div class="dl-fr">Non, c'est à cinq minutes environ.</div><div class="dl-sr">Ne, otprilike je 5 minuta.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Merci beaucoup, c'est très aimable !</div><div class="dl-sr">Hvala puno, veoma ste ljubazni!</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Smerovi</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Tout droit</td><td class="sr-cell">Pravo</td></tr>
+        <tr><td class="fr-cell">À gauche / à droite</td><td class="sr-cell">Levo / desno</td></tr>
+        <tr><td class="fr-cell">Tournez à gauche</td><td class="sr-cell">Skrenite levo</td></tr>
+        <tr><td class="fr-cell">Au carrefour / au rond-point</td><td class="sr-cell">Na raskrsnici / kružnom toku</td></tr>
+        <tr><td class="fr-cell">C'est à 200 mètres</td><td class="sr-cell">Na 200 metara je</td></tr>
+        <tr><td class="fr-cell">En face de / à côté de</td><td class="sr-cell">Nasuprot / pored</td></tr>
+        <tr><td class="fr-cell">Vous pouvez répéter ?</td><td class="sr-cell">Možete li ponoviti?</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Zašto se tako kaže</h3>
+      <ul class="why-list">
+        <li><strong>„Excusez-moi"</strong> pre pitanja je obavezno — prići nekome bez pozdrava smatramo nepristojnim.</li>
+        <li><strong>„Vous pouvez répéter plus lentement ?"</strong> — nema srama reći da ne razumeš! Francuzi to cene.</li>
+        <li><strong>„C'est par là"</strong> (tamo, u tom smeru) — korisno kad nisi siguran u tačnu udaljenost.</li>
+        <li>Uvek ponovi smernicu (comme écho): „Jusqu'au carrefour, d'accord" — potvrđuješ da si razumeo/la.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Où est la rue de Rivoli ? (direktno, bez uvoda)</div>
+        <div class="error-right"><span class="tag-right">✓</span> Excusez-moi, je cherche la rue de Rivoli.</div>
+        <div class="error-note">Direktno pitanje bez uvoda zvuči grubo. Uvek: Excusez-moi + kontekst pre pitanja.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Allez tout droitement.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Allez tout droit.</div>
+        <div class="error-note">„Droit" kao prilog ne dobija „-ement". Samo „tout droit" je tačan oblik.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ PREVOZ ═══════════════════════════════ -->
+<div class="situation" id="prevoz">
+  <div class="sit-header">
+    <div class="sit-icon">🚆</div>
+    <div>
+      <h2>Les Transports — Prevoz</h2>
+      <p>Metro, voz, taksi. SNCF, RATP — francuski prevozni sistem je odličan, ali ima sopstveni vokabular.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Na blagajni — kupovina karte</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonjour ! Un aller-retour pour Lyon, s'il vous plaît.</div><div class="dl-sr">Dobar dan! Povratnu kartu za Lyon, molim.</div></div></div>
+      <div class="dl-line"><span class="dl-who">BLA</span><div class="dl-content"><div class="dl-fr">Pour quel jour et à quelle heure ?</div><div class="dl-sr">Za koji dan i u koje vreme?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Demain matin, le plus tôt possible. Et retour vendredi soir.</div><div class="dl-sr">Sutra ujutro, što ranije. I povratak u petak uveče.</div></div></div>
+      <div class="dl-line"><span class="dl-who">BLA</span><div class="dl-content"><div class="dl-fr">J'ai un TGV à 7h15. Première ou seconde classe ?</div><div class="dl-sr">Imam TGV u 7h15. Prva ili druga klasa?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Seconde, s'il vous plaît. C'est obligatoire de réserver ?</div><div class="dl-sr">Druga, molim. Da li je obavezna rezervacija?</div></div></div>
+      <div class="dl-line"><span class="dl-who">BLA</span><div class="dl-content"><div class="dl-fr">Oui, sur le TGV c'est toujours obligatoire.</div><div class="dl-sr">Da, na TGV-u je uvek obavezna.</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Metro & gradski prevoz</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Un carnet de tickets, s'il vous plaît</td><td class="sr-cell">Knjižicu karata (10 kom), molim</td></tr>
+        <tr><td class="fr-cell">C'est quelle ligne pour Opéra ?</td><td class="sr-cell">Koja linija za Operu?</td></tr>
+        <tr><td class="fr-cell">Il faut changer à Châtelet ?</td><td class="sr-cell">Treba li presesti u Châteletu?</td></tr>
+        <tr><td class="fr-cell">C'est le bon quai ?</td><td class="sr-cell">Da li je ovo pravi peron?</td></tr>
+        <tr><td class="fr-cell">Le prochain bus, c'est à quelle heure ?</td><td class="sr-cell">Sledeći autobus, u koje vreme?</td></tr>
+        <tr><td class="fr-cell">Taxi ! Vous êtes libre ?</td><td class="sr-cell">Taksi! Da li ste slobodni?</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Ključni pojmovi</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-fr">un aller simple</div><div class="vocab-sr">karta u jednom smeru</div></div>
+        <div class="vocab-item"><div class="vocab-fr">un aller-retour</div><div class="vocab-sr">povratna karta</div></div>
+        <div class="vocab-item"><div class="vocab-fr">le quai</div><div class="vocab-sr">peron</div></div>
+        <div class="vocab-item"><div class="vocab-fr">la correspondance</div><div class="vocab-sr">presedanje</div></div>
+        <div class="vocab-item"><div class="vocab-fr">composter</div><div class="vocab-sr">poništiti kartu</div></div>
+        <div class="vocab-item"><div class="vocab-fr">en retard</div><div class="vocab-sr">kasni</div></div>
+        <div class="vocab-item"><div class="vocab-fr">à l'heure</div><div class="vocab-sr">na vreme</div></div>
+        <div class="vocab-item"><div class="vocab-fr">le terminus</div><div class="vocab-sr">krajnja stanica</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Oublier de composter le billet !</div>
+        <div class="error-right"><span class="tag-right">✓</span> Toujours composter avant de monter dans le train !</div>
+        <div class="error-note">Zaboravljanje poništavanja karte (compostage) = kazna! Na SNCF prugama je obavezno pre ulaska u voz.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je veux aller à Lyon. Un billet.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Un aller simple pour Lyon, s'il vous plaît.</div>
+        <div class="error-note">Na blagajni je uobičajeno direktno tražiti kartu (aller/retour za + destinacija) — kratko i jasno.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ BANKA ═══════════════════════════════ -->
+<div class="situation" id="banka">
+  <div class="sit-header">
+    <div class="sit-icon">🏦</div>
+    <div>
+      <h2>À la Banque — U Banci</h2>
+      <p>Otvaranje računa, transfer, problemi s karticom. Bankarski vokabular je tehnički, ali neophodan.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonjour, je voudrais ouvrir un compte courant.</div><div class="dl-sr">Dobar dan, hteo/la bih da otvorim tekući račun.</div></div></div>
+      <div class="dl-line"><span class="dl-who">SLU</span><div class="dl-content"><div class="dl-fr">Bien sûr. Avez-vous vos pièces d'identité et un justificatif de domicile ?</div><div class="dl-sr">Naravno. Imate li lična dokumenta i dokaz o adresi?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Oui, voici mon passeport et ma quittance de loyer.</div><div class="dl-sr">Da, evo mog pasoša i potvrde o zakupnini.</div></div></div>
+      <div class="dl-line"><span class="dl-who">SLU</span><div class="dl-content"><div class="dl-fr">Parfait. Voulez-vous une carte bancaire aussi ?</div><div class="dl-sr">Odlično. Želite li i bankovnu karticu?</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Oui. Est-ce qu'il y a des frais mensuels ?</div><div class="dl-sr">Da. Da li ima mesečnih naknada?</div></div></div>
+      <div class="dl-line"><span class="dl-who">SLU</span><div class="dl-content"><div class="dl-fr">Il y a deux euros par mois pour la carte standard.</div><div class="dl-sr">Dva evra mesečno za standardnu karticu.</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Korisne fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">Je voudrais faire un virement</td><td class="sr-cell">Hteo/la bih da izvršim prenos</td></tr>
+        <tr><td class="fr-cell">J'ai perdu ma carte bancaire</td><td class="sr-cell">Izgubio/la sam bankovnu karticu</td></tr>
+        <tr><td class="fr-cell">Faire opposition à la carte</td><td class="sr-cell">Blokirati karticu</td></tr>
+        <tr><td class="fr-cell">Retirer de l'argent</td><td class="sr-cell">Podići novac</td></tr>
+        <tr><td class="fr-cell">Quel est le taux de change ?</td><td class="sr-cell">Koji je kurs?</td></tr>
+        <tr><td class="fr-cell">Mon RIB, s'il vous plaît</td><td class="sr-cell">Moj RIB (bankovni identifikator), molim</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Ključni pojmovi</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-fr">un compte courant</div><div class="vocab-sr">tekući račun</div></div>
+        <div class="vocab-item"><div class="vocab-fr">un RIB</div><div class="vocab-sr">bankovni identifikator</div></div>
+        <div class="vocab-item"><div class="vocab-fr">un virement</div><div class="vocab-sr">bankovni transfer</div></div>
+        <div class="vocab-item"><div class="vocab-fr">un prélèvement</div><div class="vocab-sr">automatsko plaćanje</div></div>
+        <div class="vocab-item"><div class="vocab-fr">le solde</div><div class="vocab-sr">stanje na računu</div></div>
+        <div class="vocab-item"><div class="vocab-fr">être à découvert</div><div class="vocab-sr">biti u minusu</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ HOTEL ═══════════════════════════════ -->
+<div class="situation" id="hotel">
+  <div class="sit-header">
+    <div class="sit-icon">🏨</div>
+    <div>
+      <h2>À l'Hôtel — U Hotelu</h2>
+      <p>Check-in, problemi sa sobom, usluge. Od boutique hotela do grande chaîne — ista osnova, isti vokabular.</p>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>🎭 Kompletan dijalog — check-in</h3>
+    <div class="dialogue">
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Bonsoir ! J'ai une réservation au nom de Marić.</div><div class="dl-sr">Dobro veče! Imam rezervaciju na ime Marić.</div></div></div>
+      <div class="dl-line"><span class="dl-who">REC</span><div class="dl-content"><div class="dl-fr">Oui, une chambre double pour deux nuits. Voici votre clé, chambre 214.</div><div class="dl-sr">Da, dvokrevetna soba za dve noći. Evo vašeg ključa, soba 214.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">Le petit-déjeuner est compris ?</div><div class="dl-sr">Da li je doručak uključen?</div></div></div>
+      <div class="dl-line"><span class="dl-who">REC</span><div class="dl-content"><div class="dl-fr">Oui, il est servi de 7h à 10h au rez-de-chaussée.</div><div class="dl-sr">Da, servira se od 7h do 10h u prizemlju.</div></div></div>
+      <div class="dl-line"><span class="dl-who b">VI</span><div class="dl-content"><div class="dl-fr">La chambre donne sur la rue ? J'aurais préféré côté jardin.</div><div class="dl-sr">Da li soba gleda na ulicu? Preferirao/la bih stranu sa baštom.</div></div></div>
+      <div class="dl-line"><span class="dl-who">REC</span><div class="dl-content"><div class="dl-fr">Je vais voir si une autre chambre est disponible.</div><div class="dl-sr">Pogledaću da li je neka druga soba slobodna.</div></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 Korisne fraze</h3>
+      <table class="phrase-table">
+        <tr><td class="fr-cell">La chambre est trop bruyante</td><td class="sr-cell">Soba je previše bučna</td></tr>
+        <tr><td class="fr-cell">La climatisation ne marche pas</td><td class="sr-cell">Klima ne radi</td></tr>
+        <tr><td class="fr-cell">Pouvez-vous me réveiller à 7h ?</td><td class="sr-cell">Možete li me probuditi u 7h?</td></tr>
+        <tr><td class="fr-cell">Je voudrais prolonger mon séjour</td><td class="sr-cell">Hteo/la bih da produžim boravak</td></tr>
+        <tr><td class="fr-cell">À quelle heure est le check-out ?</td><td class="sr-cell">U koje vreme je odjava?</td></tr>
+        <tr><td class="fr-cell">Pouvez-vous garder mes bagages ?</td><td class="sr-cell">Možete li čuvati moj prtljag?</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>💡 Ključni pojmovi</h3>
+      <div class="vocab-grid">
+        <div class="vocab-item"><div class="vocab-fr">une chambre simple</div><div class="vocab-sr">jednokrevetna soba</div></div>
+        <div class="vocab-item"><div class="vocab-fr">une chambre double</div><div class="vocab-sr">dvokrevetna soba</div></div>
+        <div class="vocab-item"><div class="vocab-fr">le rez-de-chaussée</div><div class="vocab-sr">prizemlje</div></div>
+        <div class="vocab-item"><div class="vocab-fr">l'ascenseur</div><div class="vocab-sr">lift/elevator</div></div>
+        <div class="vocab-item"><div class="vocab-fr">la demi-pension</div><div class="vocab-sr">polupansion</div></div>
+        <div class="vocab-item"><div class="vocab-fr">la pension complète</div><div class="vocab-sr">pun pansion</div></div>
+        <div class="vocab-item"><div class="vocab-fr">le coffre-fort</div><div class="vocab-sr">sef (u sobi)</div></div>
+        <div class="vocab-item"><div class="vocab-fr">la femme de chambre</div><div class="vocab-sr">sobarica</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-full">
+    <h3>⚠️ Tipične greške</h3>
+    <div class="error-list">
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Je veux une chambre avec deux lits séparés.</div>
+        <div class="error-right"><span class="tag-right">✓</span> Je voudrais une chambre avec lits jumeaux.</div>
+        <div class="error-note">„Lits jumeaux" = dva odvojena kreveta (twin); „lit double" = jedan veliki bračni krevet.</div>
+      </div>
+      <div class="error-item">
+        <div class="error-wrong"><span class="tag-wrong">✗</span> Le premier étage = prizemlje (po engleskom modelu)</div>
+        <div class="error-right"><span class="tag-right">✓</span> Le rez-de-chaussée = prizemlje; le premier étage = prvi sprat</div>
+        <div class="error-note">Francuski sistem etaža se razlikuje od engleskog — prizemlje je uvek „rez-de-chaussée"!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.situation').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateProgress(btn);
+}
+
+function updateProgress(btn) {
+  const btns = Array.from(document.querySelectorAll('.nav-btn'));
+  const idx = btns.indexOf(btn);
+  const pct = ((idx + 1) / btns.length) * 100;
+  document.getElementById('pbar').style.width = pct + '%';
+}
+
+// Init progress
+updateProgress(document.querySelector('.nav-btn.active'));
+</script>
+</body>
+</html>
