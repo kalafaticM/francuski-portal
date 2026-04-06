@@ -354,6 +354,258 @@
     .nav-btn { padding: 0.9rem 0.9rem; font-size: 0.8rem; }
     main { padding: 1.5rem 1rem 3rem; }
   }
+
+  /* ═══════════════ VOCAB MODAL ═══════════════ */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+    gap: 1rem;
+  }
+  .topic-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.22s;
+  }
+  .topic-card:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .topic-card .tc-icon { font-size: 2rem; }
+  .topic-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.92rem;
+    color: var(--gold-light);
+    margin: 0.5rem 0 0.25rem;
+  }
+  .topic-card .tc-sub { font-size: 0.75rem; color: rgba(245,238,220,0.45); font-family: 'DM Mono', monospace; }
+
+  .vmodal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(13,27,42,0.88);
+    z-index: 500; backdrop-filter: blur(6px);
+    align-items: flex-start; justify-content: center;
+    padding: 2rem 1rem;
+    overflow-y: auto;
+  }
+  .vmodal-overlay.open { display: flex; }
+  .vmodal {
+    background: var(--midnight);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 16px;
+    width: 100%; max-width: 780px;
+    overflow: hidden;
+    animation: zoomIn .25s ease;
+  }
+  @keyframes zoomIn { from { transform: scale(.95); opacity:0; } to { transform: scale(1); opacity:1; } }
+  .vmodal-head {
+    padding: 1.2rem 1.5rem;
+    background: rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .vmodal-head h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light); font-size: 1.1rem;
+  }
+  .vmodal-close {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    color: var(--cream); border-radius: 50%; width: 30px; height: 30px;
+    cursor: pointer; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vsearch {
+    width: calc(100% - 3rem); margin: 1rem 1.5rem 0.75rem;
+    padding: 0.55rem 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    color: var(--cream); font-family: 'Lora', serif; font-size: 0.88rem;
+    outline: none;
+  }
+  .vsearch::placeholder { color: rgba(245,238,220,0.35); }
+  .vsearch:focus { border-color: var(--gold); }
+  .word-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+  .word-table th {
+    background: rgba(201,168,76,0.12);
+    color: var(--gold);
+    padding: 0.5rem 1rem;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+  .word-table td {
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.87rem;
+    vertical-align: top;
+  }
+  .word-table td:first-child { font-style: italic; color: var(--cream); }
+  .word-table td:nth-child(2) { color: rgba(245,238,220,0.65); }
+  .word-table td:last-child { color: rgba(245,238,220,0.4); font-size: 0.78rem; font-style: italic; }
+  .word-table tr.wh { display: none; }
+
+  /* ═══════════════ GRAMMAR ═══════════════ */
+  .gram-tabs {
+    display: flex; gap: 0.4rem; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .gtab {
+    padding: 0.4rem 0.85rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    color: rgba(245,238,220,0.6);
+    font-family: 'Lora', serif; font-size: 0.8rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .gtab:hover { border-color: var(--gold); color: var(--gold-light); }
+  .gtab.active { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold-light); }
+  .gpanels > div { display: none; }
+  .gpanels > div.active { display: block; animation: fadeIn 0.3s ease; }
+  .gram-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+    gap: 1.2rem;
+  }
+  .gram-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; overflow: hidden;
+  }
+  .gram-head {
+    padding: 1rem 1.3rem;
+    background: rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .gram-head h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; color: var(--gold-light);
+  }
+  .gram-head p { font-size: 0.75rem; color: rgba(245,238,220,0.5); margin-top: 0.2rem; }
+  .gram-body { padding: 1.1rem 1.3rem; }
+  .gram-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-bottom: 0.75rem; }
+  .gram-table td { padding: 0.38rem 0.45rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .gram-table td:first-child { color: rgba(245,238,220,0.55); width: 44%; }
+  .gram-table td:last-child { color: var(--gold-light); font-style: italic; }
+  .gram-table th {
+    padding: 0.38rem 0.45rem;
+    background: rgba(201,168,76,0.1);
+    color: var(--gold); font-size: 0.75rem; text-align: left;
+  }
+  .gram-note {
+    padding: 0.55rem 0.8rem; margin-bottom: 0.75rem;
+    background: rgba(201,168,76,0.07);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.78rem; color: rgba(245,238,220,0.7); line-height: 1.6;
+  }
+  .gram-examples { display: flex; flex-direction: column; gap: 0.45rem; }
+  .gram-ex {
+    padding: 0.5rem 0.75rem;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px; font-size: 0.82rem;
+  }
+  .gram-ex .gfr { font-style: italic; color: var(--cream); }
+  .gram-ex .gsr { color: rgba(245,238,220,0.5); font-size: 0.76rem; margin-top: 0.1rem; }
+
+  /* ═══════════════ QUIZ ═══════════════ */
+  .quiz-wrap { max-width: 620px; margin: 0 auto; }
+  .quiz-cats { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+  .qcat {
+    padding: 0.48rem 1.1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: rgba(245,238,220,0.65);
+    font-family: 'Lora', serif; font-size: 0.85rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .qcat:hover { border-color: var(--gold); color: var(--gold-light); }
+  .qcat.active { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold-light); }
+  .qcard {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.75rem;
+  }
+  .qtop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+  .qnum { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: rgba(245,238,220,0.5); }
+  .qscore {
+    font-family: 'DM Mono', monospace; font-size: 0.78rem;
+    padding: 0.22rem 0.7rem;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 20px; color: var(--gold);
+  }
+  .qprogress { height: 3px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 1.5rem; }
+  .qpbar { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); border-radius: 3px; transition: width .4s; }
+  .qtext {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--cream);
+    margin-bottom: 1.3rem; line-height: 1.55;
+  }
+  .qopts { display: flex; flex-direction: column; gap: 0.65rem; }
+  .qopt {
+    padding: 0.82rem 1.1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    color: var(--cream); font-family: 'Lora', serif; font-size: 0.9rem;
+    cursor: pointer; text-align: left; transition: all 0.18s;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .qltr {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    font-weight: 500; flex-shrink: 0; color: rgba(245,238,220,0.6);
+  }
+  .qopt:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .qopt.ok { border-color: var(--green-soft); background: rgba(74,140,106,0.15); }
+  .qopt.ok .qltr { background: var(--green-soft); color: #fff; }
+  .qopt.ko { border-color: var(--accent); background: rgba(212,101,74,0.12); }
+  .qopt.ko .qltr { background: var(--accent); color: #fff; }
+  .qopt:disabled { cursor: default; }
+  .qfb {
+    margin-top: 1rem; padding: 0.8rem 1rem; border-radius: 8px;
+    font-size: 0.87rem; display: none; line-height: 1.5;
+  }
+  .qfb.show { display: block; }
+  .qfb.ok { background: rgba(74,140,106,0.15); color: #6db88a; border: 1px solid rgba(74,140,106,0.25); }
+  .qfb.ko { background: rgba(212,101,74,0.12); color: #e87a6a; border: 1px solid rgba(212,101,74,0.25); }
+  .qnext {
+    margin-top: 1.1rem; width: 100%;
+    padding: 0.85rem;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 10px;
+    color: var(--gold-light);
+    font-family: 'Lora', serif; font-size: 0.92rem;
+    cursor: pointer; display: none; transition: all 0.2s;
+  }
+  .qnext:hover { background: rgba(201,168,76,0.25); }
+  .qnext.show { display: block; }
+  .qresult { text-align: center; padding: 1.5rem 0; display: none; }
+  .qresult.show { display: block; }
+  .rnum {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; color: var(--gold-light);
+  }
+  .rmsg { color: rgba(245,238,220,0.65); margin: 0.5rem 0 1.5rem; font-size: 0.95rem; }
+  .rbtn {
+    padding: 0.72rem 1.8rem;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 10px; color: var(--gold-light);
+    font-family: 'Lora', serif; font-size: 0.9rem; cursor: pointer;
+  }
+
 </style>
 </head>
 <body>
@@ -386,6 +638,9 @@
     <button class="nav-btn" onclick="show('prevoz',this)"><span class="nav-icon">🚆</span> Prevoz</button>
     <button class="nav-btn" onclick="show('banka',this)"><span class="nav-icon">🏦</span> Banka</button>
     <button class="nav-btn" onclick="show('hotel',this)"><span class="nav-icon">🏨</span> Hotel</button>
+    <button class="nav-btn" onclick="showSec('vokabular',this)"><span class="nav-icon">📚</span> Vokabular</button>
+    <button class="nav-btn" onclick="showSec('gramatika',this)"><span class="nav-icon">📖</span> Gramatika</button>
+    <button class="nav-btn" onclick="showSec('kviz',this)"><span class="nav-icon">🎯</span> Kviz</button>
   </div>
 </nav>
 
@@ -1034,9 +1289,87 @@
   </div>
 </div>
 
+
+<!-- ═══════════════════════════════ VOKABULAR ═══════════════════════════════ -->
+<div class="situation" id="vokabular">
+  <div class="sit-header">
+    <div class="sit-icon">📚</div>
+    <div>
+      <h2>Vokabular po temama</h2>
+      <p>12 tema · 30 reči po modulu · sa prevodom i primerom rečenice. Klikni na temu za pregled i pretraživanje.</p>
+    </div>
+  </div>
+  <div class="topic-grid" id="topic-grid"></div>
+</div>
+
+<!-- ═══════════════════════════════ GRAMATIKA ═══════════════════════════════ -->
+<div class="situation" id="gramatika">
+  <div class="sit-header">
+    <div class="sit-icon">📖</div>
+    <div>
+      <h2>Gramatika B1–B2</h2>
+      <p>12 ključnih tema sa tabelama, pravilima i primerima grešaka.</p>
+    </div>
+  </div>
+  <div class="gram-tabs" id="gram-tabs"></div>
+  <div class="gpanels" id="gram-panels"></div>
+</div>
+
+<!-- ═══════════════════════════════ KVIZ ═══════════════════════════════ -->
+<div class="situation" id="kviz">
+  <div class="sit-header">
+    <div class="sit-icon">🎯</div>
+    <div>
+      <h2>Kviz — Testiraj znanje</h2>
+      <p>4 kategorije · 40 pitanja po setu · nasumičan redosled svaki put.</p>
+    </div>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-cats">
+      <button class="qcat active" onclick="setQuiz('vocab',this)">📚 Vokabular</button>
+      <button class="qcat" onclick="setQuiz('gram',this)">📖 Gramatika</button>
+      <button class="qcat" onclick="setQuiz('fraze',this)">💬 Fraze</button>
+      <button class="qcat" onclick="setQuiz('mix',this)">🎲 Mešovito</button>
+    </div>
+    <div class="qcard">
+      <div id="quiz-main">
+        <div class="qtop">
+          <span class="qnum" id="qnum">Pitanje 1/20</span>
+          <span class="qscore" id="qscore">✓ 0 tačnih</span>
+        </div>
+        <div class="qprogress"><div class="qpbar" id="qpbar" style="width:5%"></div></div>
+        <div class="qtext" id="qtext"></div>
+        <div class="qopts" id="qopts"></div>
+        <div class="qfb" id="qfb"></div>
+        <button class="qnext" id="qnext" onclick="nextQ()">Sledeće pitanje →</button>
+      </div>
+      <div class="qresult" id="qresult">
+        <div class="rnum" id="rnum"></div>
+        <div class="rmsg" id="rmsg"></div>
+        <button class="rbtn" onclick="restartQuiz()">Pokušaj ponovo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="vmodal-overlay" id="vmodal" onclick="closeVMo(event)">
+  <div class="vmodal">
+    <div class="vmodal-head">
+      <h3 id="vmodal-title">Tema</h3>
+      <button class="vmodal-close" onclick="closeVM()">✕</button>
+    </div>
+    <input class="vsearch" type="text" placeholder="Pretraži reči u ovoj temi…" oninput="filterV(this.value)">
+    <table class="word-table">
+      <thead><tr><th>Français</th><th>Srpski</th><th>Primer rečenice</th></tr></thead>
+      <tbody id="vtbody"></tbody>
+    </table>
+  </div>
+</div>
+
 </main>
 
 <script>
+// ── NAVIGATION ──────────────────────────────────────────
 function show(id, btn) {
   document.querySelectorAll('.situation').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1045,6 +1378,7 @@ function show(id, btn) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   updateProgress(btn);
 }
+function showSec(id, btn) { show(id, btn); }
 
 function updateProgress(btn) {
   const btns = Array.from(document.querySelectorAll('.nav-btn'));
@@ -1052,9 +1386,743 @@ function updateProgress(btn) {
   const pct = ((idx + 1) / btns.length) * 100;
   document.getElementById('pbar').style.width = pct + '%';
 }
-
-// Init progress
 updateProgress(document.querySelector('.nav-btn.active'));
+
+// ── VOCABULARY ──────────────────────────────────────────
+const VOCAB = {
+  kafic:{title:'☕ Kafić i restoran',sub:'café, addition, terrasse…',words:[
+    ["le café","kafa","Je prends un café tous les matins."],
+    ["un café serré","espreso","Un café serré, s'il vous plaît."],
+    ["un café crème","bela kafa","Un café crème et un croissant, merci."],
+    ["un café allongé","duža kafa","Je préfère un café allongé."],
+    ["un thé","čaj","Je voudrais un thé au citron."],
+    ["l'addition","račun (restoran)","L'addition, s'il vous plaît!"],
+    ["le pourboire","napojnica","On laisse un pourboire?"],
+    ["la terrasse","terasa","On s'installe en terrasse?"],
+    ["le serveur","konobar","Le serveur est très attentionné."],
+    ["la carte","jelovnik (slobodan izbor)","Je vais commander à la carte."],
+    ["le menu","fiksni meni","Le menu à 15€ comprend trois plats."],
+    ["l'entrée","predjelo","Comme entrée, je prends la soupe."],
+    ["le plat principal","glavno jelo","Le plat principal est le bœuf bourguignon."],
+    ["le dessert","desert","Je voudrais une crème brûlée."],
+    ["le plat du jour","jelo dana","Quel est le plat du jour?"],
+    ["la spécialité","specijalitet","La bouillabaisse est une spécialité."],
+    ["le fromage","sir","La France a plus de 300 fromages."],
+    ["la baguette","baget","J'achète une baguette tous les matins."],
+    ["l'apéritif","aperitiv","L'apéritif est servi à 18h."],
+    ["végétarien(ne)","vegetarijanac","Avez-vous des options végétariennes?"],
+    ["sans gluten","bez glutena","Je cherche des plats sans gluten."],
+    ["la recette","kuhinjski recept","C'est une vieille recette de famille."],
+    ["les ingrédients","sastojci","Quels sont les ingrédients?"],
+    ["le chef cuisinier","glavni kuvar","Le chef a deux étoiles Michelin."],
+    ["la réservation","rezervacija","J'ai une réservation au nom de Dupont."],
+    ["commander","naručiti","Je suis prêt à commander."],
+    ["le vin","vino","Un verre de vin rouge, s'il vous plaît."],
+    ["la boulangerie","pekara","La boulangerie ouvre à 7h."],
+    ["la pâtisserie","poslastičarnica","Cette pâtisserie est excellente."],
+    ["garder la monnaie","zadržati kusur","Gardez la monnaie, s'il vous plaît."]
+  ]},
+  kupovina:{title:'🛍️ Kupovina i moda',sub:'boutique, taille, remise…',words:[
+    ["la boutique","prodavnica, butik","Cette boutique vend des vêtements."],
+    ["le grand magasin","robna kuća","Le Bon Marché est un grand magasin."],
+    ["le rayon","odeljenje","Le rayon électroménager est au 3e étage."],
+    ["la taille","veličina (odeće)","Vous faites quelle taille?"],
+    ["les cabines d'essayage","kabine za presvlačenje","Les cabines sont au fond à droite."],
+    ["le prix","cena","Quel est le prix de cette veste?"],
+    ["la remise","popust","Vous faites une remise?"],
+    ["les soldes","rasprodaja","Les soldes de janvier commencent le 12."],
+    ["la promotion","akcija","Ce produit est en promotion."],
+    ["la caisse","kasa","Où est la caisse?"],
+    ["le reçu","priznanica","Pouvez-vous me donner un reçu?"],
+    ["échanger","zameniti robu","Je voudrais échanger ce pull."],
+    ["rembourser","refundirati","On peut me rembourser?"],
+    ["en plusieurs fois","na rate","Je peux payer en plusieurs fois?"],
+    ["la carte de fidélité","kartica lojalnosti","Avez-vous une carte de fidélité?"],
+    ["emballer","zapakirati","Pouvez-vous l'emballer, c'est pour offrir."],
+    ["la livraison","dostava","La livraison est gratuite à partir de 50€."],
+    ["la pointure","broj cipela","Vous faites quelle pointure?"],
+    ["le cuir","koža (materijal)","Cette veste est en cuir véritable."],
+    ["le coton","pamuk","Je préfère les vêtements en coton."],
+    ["la marque","marka, brend","C'est une marque française de luxe."],
+    ["le vendeur","prodavac","Le vendeur est très serviable."],
+    ["dépenser","potrošiti","J'ai dépensé trop ce mois-ci."],
+    ["faire du shopping","ići u kupovinu","On fait du shopping samedi?"],
+    ["la mode","moda","La mode française est reconnue."],
+    ["à la mode","u modi","Cette couleur est très à la mode."],
+    ["le comptoir","šalter, pult","Rendez-vous au comptoir service client."],
+    ["l'article","artikal","Cet article est en rupture de stock."],
+    ["le panier","korpa","Votre panier est plein."],
+    ["la vitrine","izlog","Cette robe en vitrine m'intéresse."]
+  ]},
+  posao:{title:'💼 Posao i karijera',sub:'réunion, CV, contrat…',words:[
+    ["l'emploi","posao, zaposlenje","Il cherche un emploi stable."],
+    ["le bureau","kancelarija","Je travaille dans un bureau en open space."],
+    ["la réunion","sastanak","Nous avons une réunion à 10h."],
+    ["le salaire","plata","Son salaire a augmenté de 5%."],
+    ["le collègue","kolega","Mes collègues sont très sympas."],
+    ["la candidature","prijava za posao","J'ai envoyé ma candidature hier."],
+    ["le contrat","ugovor","Il a signé son contrat."],
+    ["la formation","obuka","La formation dure trois jours."],
+    ["la promotion","unapređenje","Elle a eu une promotion."],
+    ["le licenciement","otpuštanje","Il a reçu une lettre de licenciement."],
+    ["la démission","otkaz (sopstveni)","Elle a donné sa démission vendredi."],
+    ["le stage","stažiranje","J'ai fait un stage de trois mois."],
+    ["le stagiaire","stažist/a","Le stagiaire apprend vite."],
+    ["le télétravail","rad od kuće","Je fais du télétravail deux jours."],
+    ["l'entretien d'embauche","razgovor za posao","J'ai un entretien demain matin."],
+    ["le CV","biografija","Mon CV est à jour."],
+    ["la lettre de motivation","motivaciono pismo","La lettre de motivation est obligatoire."],
+    ["le poste","radno mesto","Ce poste m'intéresse beaucoup."],
+    ["les heures supplémentaires","prekovremeni rad","Je fais souvent des heures sup."],
+    ["la retraite","penzija","Il part à la retraite l'année prochaine."],
+    ["le congé payé","plaćeni odmor","J'ai 25 jours de congé payé."],
+    ["le chômage","nezaposlenost","Le taux de chômage a baissé."],
+    ["le syndicat","sindikat","Le syndicat a organisé une grève."],
+    ["la grève","štrajk","Les transports sont perturbés à cause de la grève."],
+    ["l'entreprise","preduzeće","Cette entreprise emploie 500 personnes."],
+    ["le chef de projet","vodja projekta","Elle est chef de projet."],
+    ["la pièce jointe","prilog (mejl)","Voir les documents en pièce jointe."],
+    ["le secteur","sektor","Je travaille dans le secteur public."],
+    ["l'indépendant(e)","preduzetnik","Elle travaille comme indépendante."],
+    ["la réunion en ligne","onlajn sastanak","On a une réunion en ligne à 15h."]
+  ]},
+  zdravlje:{title:'🏥 Zdravlje i telo',sub:'médecin, ordonnance, fièvre…',words:[
+    ["le médecin","lekar","Je dois prendre rendez-vous chez le médecin."],
+    ["la santé","zdravlje","La santé est notre bien le plus précieux."],
+    ["la douleur","bol","J'ai une douleur dans le dos."],
+    ["l'ordonnance","lekarski recept","Le médecin m'a donné une ordonnance."],
+    ["la fièvre","temperatura, groznica","J'ai 38,5 de fièvre ce matin."],
+    ["le médicament","lek","Prenez ce médicament trois fois par jour."],
+    ["l'hôpital","bolnica","Il a été hospitalisé une semaine."],
+    ["la toux","kašalj","J'ai une toux persistante."],
+    ["les antidouleurs","analgetici","Je prends des antidouleurs."],
+    ["se reposer","odmarati se","Le médecin m'a conseillé de me reposer."],
+    ["la pharmacie","apoteka","La pharmacie de garde est ouverte."],
+    ["le comprimé","tableta","Prenez deux comprimés par jour."],
+    ["l'allergie","alergija","J'ai une allergie aux arachides."],
+    ["la grippe","grip","Je suis cloué au lit avec la grippe."],
+    ["le rhume","prehlada","J'ai attrapé un rhume."],
+    ["la tension artérielle","krvni pritisak","Ma tension est un peu élevée."],
+    ["le chirurgien","hirurg","Le chirurgien opère demain matin."],
+    ["la convalescence","oporavak","La convalescence dure plusieurs semaines."],
+    ["l'assurance maladie","zdravstveno osiguranje","L'assurance maladie rembourse 70%."],
+    ["l'urgence","hitna pomoć","Il faut aller aux urgences."],
+    ["la blessure","povreda","Il a une blessure au genou."],
+    ["la fracture","prelom","La radiographie montre une fracture."],
+    ["le vaccin","vakcina","Le vaccin est recommandé."],
+    ["le stress","stres","Le stress peut nuire à la santé."],
+    ["le bien-être","dobrobit","Le bien-être mental est essentiel."],
+    ["la nausée","mučnina","J'ai des nausées depuis ce matin."],
+    ["consulter","konsultovati se","Je dois consulter un spécialiste."],
+    ["le diagnostic","dijagnoza","Le médecin a posé le bon diagnostic."],
+    ["se sentir mal","osećati se loše","Je ne me sens pas bien aujourd'hui."],
+    ["la posologie","uputstvo za upotrebu","Lisez la posologie attentivement."]
+  ]},
+  transport:{title:'🚆 Prevoz i putovanje',sub:'TGV, quai, Navigo…',words:[
+    ["l'aéroport","aerodrom","Je suis à l'aéroport depuis deux heures."],
+    ["la gare","železnička stanica","Le train part de la gare centrale."],
+    ["le billet","karta","J'ai acheté mon billet en ligne."],
+    ["le passeport","pasoš","Mon passeport expire dans un mois."],
+    ["la valise","kofer","Ma valise est trop lourde."],
+    ["le vol","let","Le vol dure deux heures et demie."],
+    ["le retard","kašnjenje","Le train a du retard de trente minutes."],
+    ["la correspondance","presedanje","Il faut changer à Lyon."],
+    ["l'enregistrement","check-in (aerodrom)","L'enregistrement ferme 45 min avant."],
+    ["la carte d'embarquement","karta za ukrcaj","N'oubliez pas votre carte d'embarquement."],
+    ["composter","kompostirati kartu","Composez votre billet avant de monter!"],
+    ["un aller simple","karta u jednom pravcu","Un aller simple pour Bordeaux."],
+    ["un aller-retour","povratna karta","Un aller-retour pour Lyon, s'il vous plaît."],
+    ["le quai","peron","Le train part du quai numéro 5."],
+    ["le TGV","brzi voz","Le TGV Paris-Lyon dure 2 heures."],
+    ["le carnet de tickets","karnet karata","Un carnet de 10 tickets, s'il vous plaît."],
+    ["la carte Navigo","Navigo kartica","La carte Navigo semaine coûte 30 euros."],
+    ["le RER","prigradska železnica","Prenez le RER B pour CDG."],
+    ["la navette","naveta, šatl","La navette relie l'aéroport au centre."],
+    ["le péage","naplata autoputa","Le péage coûte 8 euros."],
+    ["l'embouteillage","saobraćajna gužva","Il y a un embouteillage sur le périphérique."],
+    ["le VTC","taksi aplikacija (Uber)","J'ai commandé un VTC pour l'aéroport."],
+    ["le séjour","boravak","Notre séjour à Paris a duré une semaine."],
+    ["la destination","destinacija","Quelle est votre destination finale?"],
+    ["le décalage horaire","razlika u vremenskim zonama","J'ai du mal avec le décalage horaire."],
+    ["la douane","carina","Avez-vous quelque chose à déclarer?"],
+    ["le guide touristique","turistički vodič","Le guide parle plusieurs langues."],
+    ["la réservation","rezervacija","J'ai fait une réservation en ligne."],
+    ["le terminus","krajnja stanica","C'est le terminus, tout le monde descend."],
+    ["à l'heure","na vreme","Le train est à l'heure aujourd'hui."]
+  ]},
+  banka:{title:'🏦 Banka i finansije',sub:'virement, IBAN, solde…',words:[
+    ["le compte courant","tekući račun","J'ai ouvert un compte courant."],
+    ["le compte épargne","štedni račun","Le Livret A est un compte épargne."],
+    ["le virement bancaire","bankarski transfer","J'ai effectué un virement de 500€."],
+    ["le distributeur automatique","bankomat","Le distributeur est hors service."],
+    ["le code PIN","PIN kod","Ne communiquez jamais votre code PIN."],
+    ["la carte bancaire","bankarska kartica","Ma carte bancaire a été bloquée."],
+    ["le prélèvement automatique","automatska uplata","Le loyer est prélevé automatiquement."],
+    ["le taux d'intérêt","kamatna stopa","Le taux d'intérêt est de 3,5%."],
+    ["le crédit","kredit","J'ai demandé un crédit à la banque."],
+    ["le prêt immobilier","stambeni kredit","Nous avons contracté un prêt."],
+    ["le RIB","bankovni identifikator","Voici mon RIB pour le virement."],
+    ["l'IBAN","IBAN broj","Mon IBAN commence par FR76."],
+    ["les frais bancaires","bankarske naknade","Les frais bancaires sont élevés."],
+    ["le taux de change","kurs valute","Quel est le taux de change?"],
+    ["la commission","provizija","La commission est de 3%."],
+    ["le plafond","limit (kartice)","Le plafond de retrait est de 500€."],
+    ["la carte de crédit","kreditna kartica","Je paie avec ma carte de crédit."],
+    ["le relevé de compte","izvod sa računa","J'ai reçu mon relevé mensuel."],
+    ["le solde","stanje na računu","Mon solde est positif ce mois-ci."],
+    ["être à découvert","biti u minusu","Je suis à découvert de 200€."],
+    ["faire opposition","blokirati karticu","J'ai fait opposition à ma carte."],
+    ["le bureau de change","menjačnica","Le bureau de change est à l'aéroport."],
+    ["retirer de l'argent","podići novac","Je voudrais retirer 200 euros."],
+    ["le guichet","šalter banke","Je vais au guichet."],
+    ["le domiciliation bancaire","domiciliranje","Mon salaire est domicilié ici."],
+    ["le conseiller bancaire","bankovni savetnik","Mon conseiller m'a proposé un placement."],
+    ["l'assurance-vie","životno osiguranje","L'assurance-vie est un placement populaire."],
+    ["le chèque","ček","Le paiement par chèque est encore courant."],
+    ["le virement","transfer novca","J'ai fait un virement hier."],
+    ["le découvert","minus na računu","Je suis à découvert ce mois-ci."]
+  ]},
+  hotel:{title:'🏨 Hotel i smeštaj',sub:'check-in, minibar, caution…',words:[
+    ["la chambre","soba","La chambre est propre et confortable."],
+    ["la réception","recepcija","La réception est ouverte 24h/24."],
+    ["le check-in","prijava u hotel","Le check-in est à partir de 15h."],
+    ["le check-out","odjava iz hotela","Le check-out est avant midi."],
+    ["la chambre double","dvokrevetna soba","J'ai réservé une chambre double."],
+    ["la chambre simple","jednokrevetna soba","Je voudrais une chambre simple."],
+    ["les lits jumeaux","dva odvojena kreveta","Je voudrais des lits jumeaux."],
+    ["le rez-de-chaussée","prizemlje","Le restaurant est au rez-de-chaussée."],
+    ["l'ascenseur","lift","L'ascenseur est en panne."],
+    ["le minibar","minibar","J'ai consommé des boissons du minibar."],
+    ["le coffre-fort","sef","J'ai mis mon passeport dans le coffre."],
+    ["le petit-déjeuner","doručak","Le petit-déjeuner est servi de 7h à 10h."],
+    ["la demi-pension","polupansion","La demi-pension inclut le dîner."],
+    ["la pension complète","pun pansion","La pension complète inclut tous les repas."],
+    ["la caution","depozit (hotel)","La caution sera rendue à la sortie."],
+    ["la facture d'hôtel","hotelski račun","Pouvez-vous me faire une facture?"],
+    ["le service en chambre","room service","J'ai commandé le service en chambre."],
+    ["la femme de chambre","sobarica","La femme de chambre nettoie chaque matin."],
+    ["l'annulation","otkazivanje rezervacije","L'annulation est gratuite avant 48h."],
+    ["le tarif","cena sobe","Quel est le tarif par nuitée?"],
+    ["la nuitée","noćenje","Le prix par nuitée est de 120€."],
+    ["la climatisation","klima uređaj","La climatisation ne fonctionne pas."],
+    ["le chauffage","grejanje","Pouvez-vous réparer le chauffage?"],
+    ["la clé magnétique","magnetna kartica","Voici votre clé magnétique."],
+    ["prolonger le séjour","produžiti boravak","Je voudrais prolonger mon séjour."],
+    ["la réservation confirmée","potvrđena rezervacija","Votre réservation est confirmée."],
+    ["le spa","spa centar","Le spa est ouvert de 9h à 21h."],
+    ["le parking de l'hôtel","hotelski parking","Le parking coûte 15€ par nuit."],
+    ["la vue sur mer","pogled na more","Une chambre avec vue sur la mer."],
+    ["le service de réveil","telefonski budilnik","Pouvez-vous me réveiller à 7h?"]
+  ]},
+  grad:{title:'🏙️ Grad i svakodnevni život',sub:'loyer, mairie, quartier…',words:[
+    ["le quartier","kvart, četvrt","J'habite dans un quartier tranquille."],
+    ["la mairie","opština","La mairie est fermée le lundi."],
+    ["la rue","ulica","Cette rue est très animée."],
+    ["la banlieue","predgrađe","Il habite en banlieue parisienne."],
+    ["le marché","pijaca","Le marché a lieu le samedi matin."],
+    ["la poste","pošta","Je vais à la poste envoyer un colis."],
+    ["le loyer","stanarina","Le loyer a augmenté de 10%."],
+    ["la bibliothèque","biblioteka","La bibliothèque est gratuite."],
+    ["les transports en commun","javni prevoz","Je prends les transports en commun."],
+    ["l'immeuble","zgrada","Ils habitent dans un grand immeuble."],
+    ["le voisin","komšija","Mes voisins font trop de bruit."],
+    ["le parc","park","Nous promenons le chien au parc."],
+    ["le supermarché","supermarket","Le supermarché ferme à 21h."],
+    ["le recyclage","recikliranje","Le recyclage est obligatoire."],
+    ["le propriétaire","vlasnik (stana)","Le propriétaire répare le chauffage."],
+    ["le locataire","podstanar","Le locataire paie le premier du mois."],
+    ["la facture","komunalni račun","J'ai reçu la facture d'électricité."],
+    ["la manifestation","demonstracije","Une manifestation est prévue."],
+    ["l'agent immobilier","agent za nekretnine","L'agent nous a montré trois appartements."],
+    ["la colocation","sustanarstvo","La colocation est courante chez les étudiants."],
+    ["la circulation","saobraćaj","La circulation est dense le matin."],
+    ["le feu de circulation","semafor","Attendez au feu rouge."],
+    ["le commissariat","policijska stanica","Le commissariat est ouvert 24h/24."],
+    ["l'arrêt de bus","autobuska stanica","L'arrêt de bus est juste en face."],
+    ["le centre-ville","centar grada","Le centre-ville est difficile à garer."],
+    ["la piscine municipale","gradski bazen","La piscine est ouverte l'été."],
+    ["le parking","parking","Il y a un parking souterrain."],
+    ["la poubelle","kanta za smeće","La collecte est le mardi matin."],
+    ["la maison de retraite","dom penzionera","Ma grand-mère vit en maison de retraite."],
+    ["l'ascenseur","lift","L'ascenseur est en panne depuis hier."]
+  ]},
+  pijaca:{title:'🥦 Pijaca i hrana',sub:'marché, frais, bio…',words:[
+    ["le marché en plein air","pijaca na otvorenom","Le marché a lieu le dimanche."],
+    ["le producteur local","lokalni proizvođač","Ces tomates viennent du producteur local."],
+    ["frais / fraîche","svež/a","Ces légumes sont très frais."],
+    ["bio / biologique","organski","Je préfère les produits bio."],
+    ["les fruits et légumes","voće i povrće","J'achète mes légumes au marché."],
+    ["la tomate","paradajz","Ces tomates sont excellentes."],
+    ["la courgette","tikvica","Je voudrais quelques courgettes."],
+    ["le basilic","bosiljak","Du basilic frais, s'il vous plaît."],
+    ["le persil","peršun","Je vous offre le persil."],
+    ["les herbes aromatiques","aromatično bilje","Vous avez des herbes aromatiques?"],
+    ["le label rouge","oznaka kvaliteta","Ce poulet a le label rouge."],
+    ["la fromagerie","prodavnica sira","La fromagerie propose 50 fromages."],
+    ["la boucherie","mesnica","La boucherie est ouverte le matin."],
+    ["la boulangerie","pekara","La boulangerie ouvre à 7h."],
+    ["la pâtisserie","poslastičarnica","Cette pâtisserie est excellente."],
+    ["les produits laitiers","mlečni proizvodi","Le rayon produits laitiers est au fond."],
+    ["les surgelés","zamrznuta hrana","J'évite les surgelés autant que possible."],
+    ["la date de péremption","rok upotrebe","Vérifiez la date de péremption."],
+    ["les conserves","konzerve","Les conserves durent longtemps."],
+    ["le poisson","riba","Je voudrais 500g de saumon frais."],
+    ["la viande","meso","Je cherche de la viande de qualité."],
+    ["le poulet","piletina","Un poulet entier, s'il vous plaît."],
+    ["les épices","začini","Cette recette utilise des épices orientales."],
+    ["l'huile d'olive","maslinovo ulje","L'huile d'olive extra vierge est la meilleure."],
+    ["le miel","med","Ce miel vient d'un apiculteur local."],
+    ["la confiture","džem","La confiture de framboises est délicieuse."],
+    ["une douzaine","tucet","Il me faut une douzaine d'œufs."],
+    ["Il me faut…","Treba mi…","Il me faut un kilo de tomates."],
+    ["Je vous en mets…","Da Vam stavim…","Je vous en mets 500 grammes?"],
+    ["C'est de ce matin","od jutros je","Ces fleurs sont de ce matin."]
+  ]},
+  kultura:{title:'🎭 Kultura i slobodno vreme',sub:'exposition, concert, musée…',words:[
+    ["l'exposition","izložba","J'ai visité une exposition au Louvre."],
+    ["le musée","muzej","Le musée est gratuit le premier dimanche."],
+    ["le tableau","slika (umetnička)","Ce tableau est un Picasso."],
+    ["le spectacle","predstava, nastup","Le spectacle commence à 20h30."],
+    ["le théâtre","pozorište","J'adore aller au théâtre."],
+    ["le concert","koncert","Le concert de jazz est complet."],
+    ["l'opéra","opera","L'opéra de Paris est magnifique."],
+    ["la comédie musicale","mjuzikl","J'ai vu une comédie musicale."],
+    ["le cinéma","bioskop","Le cinéma français est reconnu."],
+    ["le roman","roman","J'ai lu un roman de Flaubert."],
+    ["la littérature","književnost","Elle enseigne la littérature française."],
+    ["le patrimoine culturel","kulturno nasleđe","Ce château est patrimoine culturel."],
+    ["le festival","festival","Le festival d'Avignon est célèbre."],
+    ["la galerie d'art","galerija","La galerie expose des artistes."],
+    ["le chef-d'œuvre","remek-delo","Ce film est un vrai chef-d'œuvre."],
+    ["la danse","ples","La danse classique demande des années."],
+    ["la bande dessinée","strip","La BD belge est très appréciée."],
+    ["la randonnée","planinarenje","On fait une randonnée en montagne."],
+    ["le bénévolat","volontiranje","Je fais du bénévolat le samedi."],
+    ["le passe-temps","hobi","La lecture est mon passe-temps favori."],
+    ["la piscine","bazen","Je vais à la piscine trois fois par semaine."],
+    ["le match","utakmica","Le match commence à 21h."],
+    ["la médaille","medalja","Elle a gagné une médaille d'or."],
+    ["la victoire","pobeda","Quelle victoire magnifique!"],
+    ["l'équipe","ekipa","L'équipe de France a gagné."],
+    ["l'abonnement","pretplata","J'ai un abonnement au musée."],
+    ["la visite guidée","vođena tura","Je voudrais une visite guidée."],
+    ["le vernissage","otvaranje izložbe","Le vernissage a lieu jeudi soir."],
+    ["la programmation","program institucije","La programmation de l'opéra est riche."],
+    ["l'événement","događaj","C'est un événement incontournable."]
+  ]},
+  environnement:{title:'🌿 Životna sredina',sub:'pollution, bio, éolienne…',words:[
+    ["l'environnement","životna sredina","Il faut protéger l'environnement."],
+    ["le réchauffement climatique","globalno zagrevanje","Le réchauffement climatique s'accélère."],
+    ["le développement durable","održivi razvoj","Notre entreprise s'engage."],
+    ["la pollution","zagađenje","La pollution de l'air nuit à la santé."],
+    ["les énergies renouvelables","obnovljive energije","Les renouvelables sont l'avenir."],
+    ["le panneau solaire","solarni panel","Ils ont installé des panneaux solaires."],
+    ["l'éolienne","vetroturbina","La côte est couverte d'éoliennes."],
+    ["le biodégradable","biorazgradiv","J'achète des produits biodégradables."],
+    ["le compost","kompost","Nous faisons du compost au jardin."],
+    ["la déforestation","deforestacija","La déforestation menace la biodiversité."],
+    ["la biodiversité","biodiverzitet","La perte de biodiversité est alarmante."],
+    ["l'empreinte carbone","ugljenični otisak","Je réduis mon empreinte carbone."],
+    ["le tri sélectif","razdvajanje otpada","Le tri sélectif est obligatoire."],
+    ["la canicule","toplotni talas","La canicule a duré trois semaines."],
+    ["l'inondation","poplava","Des inondations ont touché le sud."],
+    ["la sécheresse","suša","La sécheresse menace les récoltes."],
+    ["le plastique à usage unique","plastika za jednokratnu upotrebu","Interdit en France depuis 2021."],
+    ["le bilan carbone","ugljenični bilans","L'entreprise a réduit son bilan."],
+    ["l'agriculture biologique","organska poljoprivreda","L'agriculture bio est en plein essor."],
+    ["le véhicule électrique","električno vozilo","Les ventes de VE augmentent."],
+    ["la consommation responsable","odgovorna potrošnja","Je pratique la consommation responsable."],
+    ["le zéro déchet","nula otpada","Le mouvement zéro déchet gagne du terrain."],
+    ["la transition écologique","ekološka tranzicija","La transition écologique est urgente."],
+    ["l'écologie","ekologija","L'écologie est une priorité politique."],
+    ["le gaz à effet de serre","gas staklene bašte","Les gaz réchauffent la planète."],
+    ["l'espèce menacée","ugrožena vrsta","Ce projet menace une espèce protégée."],
+    ["la faune","fauna","La faune locale est menacée."],
+    ["la flore","flora","La flore méditerranéenne est unique."],
+    ["l'ONG","NVO","Cette ONG protège les forêts tropicales."],
+    ["la marée noire","izliv nafte","La marée noire a pollué la côte."]
+  ]},
+  tech:{title:'💻 Tehnologija i mediji',sub:'IA, streaming, fake news…',words:[
+    ["l'intelligence artificielle","veštačka inteligencija","L'IA transforme notre société."],
+    ["le logiciel","softver","Ce logiciel est open source."],
+    ["l'application","aplikacija","J'ai téléchargé une nouvelle application."],
+    ["le mot de passe","lozinka","Mon mot de passe a 12 caractères."],
+    ["le cloud","oblak (cloud)","Mes fichiers sont dans le cloud."],
+    ["la cybersécurité","sajber bezbednost","La cybersécurité est un enjeu majeur."],
+    ["la donnée personnelle","lični podaci","Vos données sont protégées."],
+    ["le moteur de recherche","pretraživač","Google est le plus utilisé."],
+    ["la mise à jour","ažuriranje","La mise à jour est disponible."],
+    ["le bug","greška (bug)","Il y a un bug dans le programme."],
+    ["le streaming","striming","Je regarde des séries en streaming."],
+    ["les réseaux sociaux","društvene mreže","Il passe trop de temps sur les réseaux."],
+    ["le podcast","podkast","J'écoute des podcasts pendant le trajet."],
+    ["les fake news","lažne vesti","Vérifiez toujours vos sources."],
+    ["le journal","novine","Il lit le journal chaque matin."],
+    ["l'actualité","aktuelnosti","Les actualités sont préoccupantes."],
+    ["le débat","debata","Il y a eu un débat télévisé hier soir."],
+    ["l'émission","emisija","Cette émission est diffusée chaque semaine."],
+    ["la liberté de la presse","sloboda štampe","La liberté de la presse est fondamentale."],
+    ["le journaliste","novinar","Le journaliste a interviewé le ministre."],
+    ["la publicité","reklama","Il y a trop de publicité à la télévision."],
+    ["la chaîne","TV kanal","Quelle chaîne diffuse le match?"],
+    ["le sondage","anketa","Selon le sondage, 60% sont favorables."],
+    ["le direct","prenos uživo","Le discours est diffusé en direct."],
+    ["le numérique","digitalno","La presse numérique remplace le papier."],
+    ["l'algorithme","algoritam","Cet algorithme analyse les données."],
+    ["la programmation","programiranje","Apprendre la programmation est utile."],
+    ["le robot","robot","Les robots remplacent certains emplois."],
+    ["la réalité virtuelle","virtuelna stvarnost","La VR transforme les jeux vidéo."],
+    ["l'objet connecté","pametni uređaj (IoT)","Les objets connectés facilitent la vie."]
+  ]}
+};
+
+const TOPIC_ICONS = {kafic:'☕',kupovina:'🛍️',posao:'💼',zdravlje:'🏥',transport:'🚆',banka:'🏦',hotel:'🏨',grad:'🏙️',pijaca:'🥦',kultura:'🎭',environnement:'🌿',tech:'💻'};
+
+(function() {
+  const grid = document.getElementById('topic-grid');
+  if (!grid) return;
+  Object.entries(VOCAB).forEach(([id, v]) => {
+    const d = document.createElement('div');
+    d.className = 'topic-card';
+    d.onclick = () => openVocab(id);
+    d.innerHTML = `<div class="tc-icon">${TOPIC_ICONS[id]||'📚'}</div><h3>${v.title.substring(2)}</h3><div class="tc-sub">${v.sub} &nbsp;·&nbsp; 30 reči</div>`;
+    grid.appendChild(d);
+  });
+})();
+
+function openVocab(id) {
+  const v = VOCAB[id];
+  document.getElementById('vmodal-title').textContent = v.title;
+  document.querySelector('.vsearch').value = '';
+  document.getElementById('vtbody').innerHTML = v.words.map(([fr,sr,ex]) =>
+    `<tr><td>${fr}</td><td>${sr}</td><td>${ex}</td></tr>`).join('');
+  document.getElementById('vmodal').classList.add('open');
+}
+function filterV(val) {
+  document.querySelectorAll('#vtbody tr').forEach(r => {
+    r.classList.toggle('wh', val.length > 0 && !r.textContent.toLowerCase().includes(val.toLowerCase()));
+  });
+}
+function closeVMo(e) { if (e.target.id === 'vmodal') closeVM(); }
+function closeVM() { document.getElementById('vmodal').classList.remove('open'); }
+
+// ── GRAMMAR ─────────────────────────────────────────────
+const GRAM = [
+  {id:'subj',tab:'Subjonctif',cards:[
+    {h:'Subjonctif présent — tvorba',s:'Osnova iz 3. l. mn. présenta + nastavci -e/-es/-e/-ions/-iez/-ent',
+     body:`<table class="gram-table"><tr><td>je / j'</td><td>parle</td></tr><tr><td>tu</td><td>parles</td></tr><tr><td>il/elle</td><td>parle</td></tr><tr><td>nous</td><td>parlions</td></tr><tr><td>vous</td><td>parliez</td></tr><tr><td>ils/elles</td><td>parlent</td></tr></table><div class="gram-note">⚠️ Nepravilni: être→sois/soit/soyons… · avoir→aie/ait/ayons… · aller→aille… · faire→fasse… · pouvoir→puisse… · savoir→sache…</div>`,
+     ex:[["Il faut que tu parles avec le directeur.","Moraš da razgovaraš sa direktorom."],["Je suis content que vous soyez là.","Drago mi je što ste tu."]]},
+    {h:'Subjonctif — okidači',s:'Nužnost · Volja · Emocija · Sumnja · Cilj · Ustupanje',
+     body:`<table class="gram-table"><tr><td>Nužnost</td><td>il faut que, il est nécessaire que</td></tr><tr><td>Volja/želja</td><td>vouloir que, souhaiter que, préférer que</td></tr><tr><td>Emocija</td><td>être content/triste/surpris/désolé que</td></tr><tr><td>Sumnja</td><td>douter que, ne pas croire que</td></tr><tr><td>Cilj</td><td>pour que, afin que, de peur que</td></tr><tr><td>Ustupanje</td><td>bien que, quoique, encore que</td></tr><tr><td>Uslov</td><td>à condition que, pourvu que, à moins que</td></tr></table><div class="gram-note">💡 Isti subjekat = infinitiv: «Je veux partir» (ne «que je parte»)</div>`,
+     ex:[["Je veux qu'il finisse à temps.","Želim da završi na vreme."],["Bien qu'il soit fatigué, il continue.","Iako je umoran, nastavlja."]]}
+  ]},
+  {id:'cond',tab:'Conditionnel',cards:[
+    {h:'Conditionnel présent',s:'Infinitiv + nastavci imparfaita (-ais/-ais/-ait/-ions/-iez/-aient)',
+     body:`<table class="gram-table"><tr><td>je/tu</td><td>parler<em>ais</em></td></tr><tr><td>il/elle</td><td>parler<em>ait</em></td></tr><tr><td>nous</td><td>parler<em>ions</em></td></tr><tr><td>vous</td><td>parler<em>iez</em></td></tr><tr><td>ils/elles</td><td>parler<em>aient</em></td></tr></table><div class="gram-note">Nepravilne osnove: être→ser- · avoir→aur- · aller→ir- · faire→fer- · pouvoir→pourr- · vouloir→voudr- · venir→viendr-</div>`,
+     ex:[["Je voudrais un café, s'il vous plaît.","Hteo bih kafu, molim."],["Tu devrais aller chez le médecin.","Trebalo bi da ideš kod lekara."]]},
+    {h:'Conditionnel passé',s:'Prošla hipoteza — šta bi se desilo da…',
+     body:`<table class="gram-table"><tr><td>j'aurais parlé</td><td>bio bih govorio</td></tr><tr><td>il serait venu</td><td>bio bi došao</td></tr><tr><td>nous aurions fini</td><td>bili bismo završili</td></tr></table><div class="gram-note">Si + plus-que-parfait → conditionnel passé<br>«J'aurais dû» = trebalo je da (kajanje)</div>`,
+     ex:[["Si tu avais étudié, tu aurais réussi.","Da si učio, bio bi uspeo."],["J'aurais dû partir plus tôt.","Trebalo je da odem ranije."]]}
+  ]},
+  {id:'temps',tab:'Prošla vremena',cards:[
+    {h:'Passé composé vs Imparfait',s:'Ključna razlika u pripovedanju',
+     body:`<table class="gram-table"><tr><td><em>Passé composé</em></td><td>završena, jednokratna radnja; sled događaja</td></tr><tr><td><em>Imparfait</em></td><td>opis, navika, pozadina, trajanje</td></tr></table><div class="gram-note">💡 Imparfait = pozornica (opis/scena) · PC = glumci (akcija)<br>Okidači PC: soudain, tout à coup, un jour, puis, ensuite<br>Okidači IMP: tous les jours, souvent, autrefois, pendant que</div>`,
+     ex:[["Il lisait quand le téléphone a sonné.","Čitao je kada je telefon zazvonio."],["Quand j'étais enfant, je jouais au foot chaque jour.","Kada sam bio dete, igrao sam fudbal svaki dan."]]},
+    {h:'Plus-que-parfait',s:'Prošlost PRE prošlosti',
+     body:`<table class="gram-table"><tr><td>j'avais parlé</td><td>bio sam govorio (ranije)</td></tr><tr><td>il était parti</td><td>bio je otišao (ranije)</td></tr><tr><td>nous avions fini</td><td>bili smo završili (ranije)</td></tr></table>`,
+     ex:[["Quand je suis arrivé, il était déjà parti.","Kada sam stigao, već je bio otišao."],["Elle avait oublié qu'il y avait une réunion.","Zaboravila je da je bio zakazao sastanak."]]},
+    {h:'Futur simple vs Futur proche vs Passé récent',s:'Daleka · bliska · upravo završena',
+     body:`<table class="gram-table"><tr><td><em>Futur simple</em></td><td>daleka budućnost — infinitif + -ai/-as/-a/-ons/-ez/-ont</td></tr><tr><td><em>Futur proche</em></td><td>bliska, planirana — aller (présent) + infinitif</td></tr><tr><td><em>Passé récent</em></td><td>upravo završena — venir de + infinitif</td></tr></table>`,
+     ex:[["Demain, il parlera au directeur.","Sutra će razgovarati sa direktorom."],["Je vais manger. / Je viens de manger.","Sada ću da jedem. / Upravo sam pojeo."]]}
+  ]},
+  {id:'rel',tab:'Pronoms relatifs',cards:[
+    {h:'qui / que / dont / où',s:'Osnovna 4 relativna pronomena',
+     body:`<table class="gram-table"><tr><td><em>qui</em></td><td>subjekat (osoba ili stvar)</td></tr><tr><td><em>que / qu'</em></td><td>direktni objekat</td></tr><tr><td><em>dont</em></td><td>zamenjuje «de + imenica» (parler de, avoir besoin de…)</td></tr><tr><td><em>où</em></td><td>mesto ili vreme</td></tr></table>`,
+     ex:[["L'homme dont je parle est médecin.","Čovek o kome govorim je lekar."],["La ville où j'habite est très belle.","Grad u kome živim je lep."]]},
+    {h:'lequel / laquelle / lesquels…',s:'Posle predloga (osim de+osoba → dont)',
+     body:`<table class="gram-table"><tr><td>masc. jed.</td><td>lequel → auquel / duquel</td></tr><tr><td>fem. jed.</td><td>laquelle → à laquelle / de laquelle</td></tr><tr><td>mn.</td><td>lesquels → auxquels / desquels</td></tr></table>`,
+     ex:[["C'est le problème auquel je pense.","To je problem o kome razmišljam."],["La raison pour laquelle je pars est simple.","Razlog zbog kojeg odlazim je jednostavan."]]}
+  ]},
+  {id:'hyp',tab:'Hypothèse (Si)',cards:[
+    {h:'Periodi sa «si» — 3 tipa',s:'Realni · potencijalni · irealni uslov',
+     body:`<table class="gram-table"><tr><th>Tip</th><th>Si-rečenica</th><th>Glavna rečenica</th></tr><tr><td>1 realni</td><td>présent</td><td>futur / présent / impératif</td></tr><tr><td>2 potencijalni</td><td>imparfait</td><td>conditionnel présent</td></tr><tr><td>3 irealni</td><td>plus-que-parfait</td><td>conditionnel passé</td></tr></table><div class="gram-note">⚠️ Nakon «si» NIKAD conditionnel! «Si je voudrais» = GREŠKA</div>`,
+     ex:[["Si tu travailles, tu réussiras.","Ako budeš radio, uspećeš."],["Si elle avait su, elle ne serait pas venue.","Da je znala, ne bi bila došla."]]}
+  ]},
+  {id:'disc',tab:'Discours indirect',cards:[
+    {h:'Neupravni govor — pomak vremena',s:'Prenošenje tuđih reči u prošlost',
+     body:`<table class="gram-table"><tr><td>présent →</td><td>imparfait</td></tr><tr><td>passé composé →</td><td>plus-que-parfait</td></tr><tr><td>futur simple →</td><td>conditionnel présent</td></tr><tr><td>impératif →</td><td>de + infinitif</td></tr></table><div class="gram-note">Menjaju se i: demain→le lendemain · hier→la veille · maintenant→alors · ici→là</div>`,
+     ex:[["Il a dit: «Je suis fatigué.» → qu'il était fatigué.","Rekao je da je umoran."],["Elle a demandé: «Viens!» → de venir.","Zamolila ga je da dođe."]]}
+  ]},
+  {id:'passive',tab:'Voix passive',cards:[
+    {h:'Pasivna forma — tvorba i upotreba',s:'Être (odg. vreme) + participe passé (slaže se sa subj.)',
+     body:`<table class="gram-table"><tr><td>présent</td><td>La lettre <em>est écrite</em>.</td></tr><tr><td>passé composé</td><td>La lettre <em>a été écrite</em>.</td></tr><tr><td>imparfait</td><td>La lettre <em>était écrite</em>.</td></tr><tr><td>futur</td><td>La lettre <em>sera écrite</em>.</td></tr></table><div class="gram-note">Agens: «par» (konkretna radnja) · «de» (opis stanja)<br>«Le livre est aimé de tous» vs «La loi a été votée par les députés»</div>`,
+     ex:[["Ce roman a été écrit par Victor Hugo.","Ovaj roman je napisao Viktor Igo."],["La ville est entourée de montagnes.","Grad je okružen planinama."]]}
+  ]},
+  {id:'conn',tab:'Connecteurs',cards:[
+    {h:'Logički konektori — 8 kategorija',s:'Za pisanje i usmeno izražavanje B1–B2',
+     body:`<table class="gram-table"><tr><td><em>Uzrok</em></td><td>car, parce que, puisque, étant donné que</td></tr><tr><td><em>Posledica</em></td><td>donc, c'est pourquoi, par conséquent, ainsi</td></tr><tr><td><em>Suprotnost</em></td><td>mais, cependant, néanmoins, pourtant, en revanche</td></tr><tr><td><em>Dopuna</em></td><td>de plus, en outre, par ailleurs, qui plus est</td></tr><tr><td><em>Zaključak</em></td><td>en conclusion, bref, finalement, en définitive</td></tr><tr><td><em>Ilustracija</em></td><td>par exemple, c'est-à-dire, notamment, ainsi</td></tr><tr><td><em>Uslov</em></td><td>si, à condition que, pourvu que, en cas de</td></tr><tr><td><em>Vreme</em></td><td>quand, lorsque, dès que, avant que, pendant que</td></tr></table>`,
+     ex:[["Il est malade, c'est pourquoi il reste chez lui.","Bolestan je, zato ostaje kod kuće."],["Certes, c'est difficile ; néanmoins, c'est faisable.","Teško je; ipak, izvodljivo je."]]}
+  ]},
+  {id:'neg',tab:'Négation',cards:[
+    {h:'Složena negacija',s:'Ne…plus · jamais · rien · personne · que · ni…ni',
+     body:`<table class="gram-table"><tr><td>ne…pas</td><td>obična negacija</td></tr><tr><td>ne…plus</td><td>više ne</td></tr><tr><td>ne…jamais</td><td>nikad</td></tr><tr><td>ne…rien</td><td>ništa</td></tr><tr><td>ne…personne</td><td>niko</td></tr><tr><td>ne…aucun(e)</td><td>nijedan/jedna</td></tr><tr><td>ne…que</td><td>samo (restriktivna)</td></tr><tr><td>ne…ni…ni</td><td>ni…ni</td></tr></table><div class="gram-note">Govorni jezik: «ne» se izostavlja → «Je sais pas» umesto «Je ne sais pas»</div>`,
+     ex:[["Il ne mange plus de viande depuis un an.","Više ne jede meso godinu dana."],["Elle ne parle ni français ni espagnol.","Ne govori ni francuski ni španski."]]}
+  ]},
+  {id:'articles',tab:'Članovi',cards:[
+    {h:'Određeni / neodređeni / deljivi',s:'le/la/les · un/une/des · du/de la/des',
+     body:`<table class="gram-table"><tr><th>Tip</th><th>Masc.</th><th>Fem.</th><th>Mn.</th></tr><tr><td>Određeni</td><td>le / l'</td><td>la / l'</td><td>les</td></tr><tr><td>Neodređeni</td><td>un</td><td>une</td><td>des</td></tr><tr><td>Deljivi</td><td>du (de+le)</td><td>de la</td><td>des</td></tr></table><div class="gram-note">Posle negacije: du/de la/des → DE: «Je ne mange pas de viande.»<br>Posle negacije: un/une → DE: «Je n'ai pas de voiture.»<br>Profesija bez člana: «Il est médecin.»</div>`,
+     ex:[["Je bois du café le matin.","Pijem kafu ujutru (neodređena količina)."],["Il n'y a plus de pain. / Il est professeur.","Nema više hleba. / On je profesor."]]}
+  ]},
+  {id:'prep',tab:'Predlozi / Gérondif',cards:[
+    {h:'À / De / En / Dans / Par / Pour',s:'Najčešće greške na B1–B2 nivou',
+     body:`<table class="gram-table"><tr><td><em>à</em></td><td>grad: à Paris · cilj: aller à · «avoir mal à»</td></tr><tr><td><em>de</em></td><td>poreklo: venir de · sadržaj: verre de vin</td></tr><tr><td><em>en</em></td><td>zemlja (fem.): en France · materijal · trajanje · prevoz</td></tr><tr><td><em>dans</em></td><td>unutar: dans la rue · budućnost: dans un an</td></tr><tr><td><em>par</em></td><td>agens u pasivu · puta: deux fois par jour</td></tr><tr><td><em>pour</em></td><td>cilj: partir pour · trajanje: pour 3 jours</td></tr></table><div class="gram-note">Grad→à · Zemlja (fem.)→en · Zemlja (muš.)→au · Mn.→aux<br>Primer: à Lyon · en France · au Maroc · aux États-Unis</div>`,
+     ex:[["J'habite en France mais je vais à Lyon.","Živim u Francuskoj ali idem u Lion."],["J'ai mal au dos. / Il vient de Paris.","Boli me leđa. / Dolazi iz Pariza."]]},
+    {h:'Gérondif — tvorba i upotreba',s:'en + participe présent',
+     body:`<table class="gram-table"><tr><td>Istovremenost</td><td>Il chante <em>en travaillant</em>.</td></tr><tr><td>Uslov</td><td><em>En travaillant</em> plus, tu réussiras.</td></tr><tr><td>Način</td><td>Elle répond <em>en souriant</em>.</td></tr></table><div class="gram-note">Tvorba: en + osnova iz 1. l. mn. + -ant<br>Nepravilan: être→étant · avoir→ayant · savoir→sachant</div>`,
+     ex:[["Il a appris le français en regardant des films.","Naučio je gledajući filmove."],["Après avoir mangé, il s'est reposé.","Nakon što je pojeo, odmorio se."]]}
+  ]},
+  {id:'depuis',tab:'Depuis / Pendant',cards:[
+    {h:'Depuis vs Pendant vs Pour vs Il y a',s:'Četiri načina za izražavanje vremena',
+     body:`<table class="gram-table"><tr><td><em>depuis</em> + présent</td><td>Trajanje DO SADA: «J'ai mal depuis lundi.»</td></tr><tr><td><em>depuis</em> + imparfait</td><td>Trajanje DO prošlog trenutka: «Je travaillais depuis 2h.»</td></tr><tr><td><em>pendant</em></td><td>Završeno trajanje: «J'ai étudié pendant 3 ans.»</td></tr><tr><td><em>pour</em></td><td>Predviđeno trajanje: «Je pars pour 3 jours.»</td></tr><tr><td><em>il y a</em></td><td>Pre X vremena: «Il est parti il y a 2 ans.»</td></tr></table>`,
+     ex:[["J'habite ici depuis 5 ans. (i dalje živim)","Živim ovde 5 godina."],["J'ai vécu là-bas pendant 3 ans. (završeno)","Živeo sam tamo 3 godine (završeno)."]]}
+  ]}
+];
+
+(function() {
+  const tabs = document.getElementById('gram-tabs');
+  const panels = document.getElementById('gram-panels');
+  if (!tabs || !panels) return;
+  GRAM.forEach((g, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'gtab' + (i === 0 ? ' active' : '');
+    btn.textContent = g.tab;
+    btn.onclick = () => {
+      document.querySelectorAll('.gtab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#gram-panels > div').forEach(p => p.classList.remove('active'));
+      document.getElementById('gp-' + g.id).classList.add('active');
+    };
+    tabs.appendChild(btn);
+    const panel = document.createElement('div');
+    panel.id = 'gp-' + g.id;
+    if (i === 0) panel.classList.add('active');
+    panel.innerHTML = `<div class="gram-grid">${g.cards.map(c => `
+      <div class="gram-card">
+        <div class="gram-head"><h3>${c.h}</h3><p>${c.s}</p></div>
+        <div class="gram-body">${c.body}
+          <div class="gram-examples">${c.ex.map(([fr,sr]) => `<div class="gram-ex"><div class="gfr">${fr}</div><div class="gsr">${sr}</div></div>`).join('')}</div>
+        </div>
+      </div>`).join('')}</div>`;
+    panels.appendChild(panel);
+  });
+})();
+
+// ── QUIZ ────────────────────────────────────────────────
+const QD = {
+  vocab:[
+    {q:"«Composter le billet» znači?",opts:["Kupiti kartu","Validirati kartu pre ulaska u voz","Pokazati kartu","Rezervisati"],ans:1},
+    {q:"«L'aller-retour» je?",opts:["Karta u jednom pravcu","Povratna karta","Mesečna karta","Karnet 10 karata"],ans:1},
+    {q:"«Le minibar» u hotelu je?",opts:["Frižider sa pićima/grickalicama","Mini bar u foajeu","Klima uređaj","Sef"],ans:0},
+    {q:"«Le check-out» je?",opts:["Prijava u hotel","Plaćanje minibar","Odjava iz hotela","Rezervacija"],ans:2},
+    {q:"«La caution» u hotelu je?",opts:["Napojnica","Doručak","Depozit","Parking naknada"],ans:2},
+    {q:"«Le virement bancaire» je?",opts:["Podizanje gotovine","Bankarski transfer","Provizija","Kredit"],ans:1},
+    {q:"«L'IBAN» je?",opts:["Poreski broj","Međunarodn. br. bankovnog računa","Kreditna ocena","Provizija"],ans:1},
+    {q:"«Être à découvert» znači?",opts:["Biti otkriven","Biti u minusu na računu","Imati kredit","Štedeti"],ans:1},
+    {q:"«Le TGV» je?",opts:["Gradski autobus","Tramvaj","Brzi voz","Metro"],ans:2},
+    {q:"«Le quai» na stanici je?",opts:["Čekaonica","Blagajna","Peron","Ulaz u stanicu"],ans:2},
+    {q:"«Un aller simple» je?",opts:["Povratna karta","Karta u jednom pravcu","Karnet karata","Mesečna karta"],ans:1},
+    {q:"«La correspondance» u transportu je?",opts:["Pismo","Presedanje","Zakašnjenje","Direktan voz"],ans:1},
+    {q:"«Le loyer» je?",opts:["Kredit za stan","Stanarina","Komunalije","Depozit"],ans:1},
+    {q:"«Le plat du jour» je?",opts:["Specijalitet kuće","Jelo dana","Predjelo","Fiksni meni"],ans:1},
+    {q:"«La carte» vs «le menu» u restoranu?",opts:["Nema razlike","carte=slobodan, menu=fiksni","menu=slobodan, carte=fiksni","carte je za piće"],ans:1},
+    {q:"«La sécheresse» je?",opts:["Poplava","Toplotni talas","Suša","Oluja"],ans:2},
+    {q:"«Le bénévolat» je?",opts:["Hobi","Volontiranje","Stipendija","Honorarni rad"],ans:1},
+    {q:"«La convalescence» je?",opts:["Operacija","Dijagnoza","Oporavak","Recept"],ans:2},
+    {q:"«Les lits jumeaux» su?",opts:["Bračni krevet","Dva odvojena kreveta","Krevet na sprat","Trokrevetna"],ans:1},
+    {q:"«La nuitée» je?",opts:["Noćni klub","Cena za jedno noćenje","Noćna smena","Večernji meni"],ans:1},
+    {q:"«Le rayon» u prodavnici je?",opts:["Cena","Odeljenje","Kasa","Izlog"],ans:1},
+    {q:"«En soldes» znači?",opts:["Rasprodaja","Nova kolekcija","Ekskluzivna marka","Premium cena"],ans:0},
+    {q:"«La tension artérielle» je?",opts:["Stres","Alergija","Krvni pritisak","Bol u grudima"],ans:2},
+    {q:"«Le coffre-fort» u hotelu je?",opts:["Ormar","Sef","Frižider","Ladica"],ans:1},
+    {q:"«La carte Navigo» se koristi u?",opts:["Pragu","Briselu","Parizu","Berlinu"],ans:2},
+    {q:"«Les frais bancaires» su?",opts:["Bankarski kredit","Bankarske naknade","Kamatni prihod","Devizni kurs"],ans:1},
+    {q:"«Le rez-de-chaussée» je?",opts:["Podrum","Prizemlje","Prvi sprat","Drugi sprat"],ans:1},
+    {q:"«La posologie» na leku je?",opts:["Rok trajanja","Uputstvo za upotrebu","Naziv leka","Cena"],ans:1},
+    {q:"«Le RIB» je?",opts:["Bankarska kartica","Bankovni identifikator","PIN kod","Izvod sa računa"],ans:1},
+    {q:"«Le péage» je?",opts:["Pumpa","Naplata autoputa","Parking","Motel"],ans:1},
+    {q:"«Le carnet de tickets» sadrži?",opts:["5 karata","8 karata","10 karata","20 karata"],ans:2},
+    {q:"«À jeun» znači uzeti lek?",opts:["Posle obroka","Na prazan stomak","Uz puno vode","Pre spavanja"],ans:1},
+    {q:"«L'embouteillage» je?",opts:["Fabrika boca","Saobraćajna gužva","Parking","Jednosmerna ulica"],ans:1},
+    {q:"«La pâtisserie» je?",opts:["Pekara","Poslastičarnica","Mesnica","Delikatesen"],ans:1},
+    {q:"«En vente libre» za lek znači?",opts:["Skupo","Bez recepta","Na recept","Zabranjeno"],ans:1},
+    {q:"«Le taux d'intérêt» je?",opts:["Devizni kurs","Kamatna stopa","Provizija","Naknada"],ans:1},
+    {q:"«La boucherie» je?",opts:["Pekara","Mesnica","Ribarnica","Mlekara"],ans:1},
+    {q:"«Le label rouge» označava?",opts:["Ekološki proizvod","Oznaku kvaliteta","Sniženu cenu","Uvozni"],ans:1},
+    {q:"«La domiciliation bancaire» je?",opts:["Adresa banke","Domiciliranje (plata na račun)","Zatvaranje računa","Promena banke"],ans:1},
+    {q:"«La carte de fidélité» je?",opts:["Kreditna kartica","Kartica lojalnosti kupaca","Bankarska kartica","Putnička kartica"],ans:1},
+  ],
+  gram:[
+    {q:"Subjonctif od «être», 1. l. jed.?",opts:["suis","serai","sois","étais"],ans:2},
+    {q:"Conditionnel présent od «avoir», 1. l. jed.?",opts:["aurai","avais","aie","aurais"],ans:3},
+    {q:"«La ville ___ j'habite est belle.» — koji pronom?",opts:["qui","que","dont","où"],ans:3},
+    {q:"U discours indirect, présent postaje?",opts:["futur","conditionnel","imparfait","subjonctif"],ans:2},
+    {q:"«Si j'avais le temps, je ___ partir.» — «pouvoir»?",opts:["pourrai","pouvais","pourrais","parte"],ans:2},
+    {q:"«Ne…___ » za «nikad»?",opts:["plus","rien","jamais","personne"],ans:2},
+    {q:"«Il faut que tu ___ (finir).» — subjonctif?",opts:["finisses","finiras","finissais","finir"],ans:0},
+    {q:"«Si + plus-que-parfait» → glavna rečenica u?",opts:["futur","présent","conditionnel passé","subjonctif"],ans:2},
+    {q:"Plus-que-parfait od «partir», 3. l. jed.?",opts:["il avait parti","il était parti","il a parti","il sera parti"],ans:1},
+    {q:"«Bien que» zahteva koji mod?",opts:["indicatif","conditionnel","subjonctif","infinitif"],ans:2},
+    {q:"«Ne…___ » za «ništa»?",opts:["jamais","personne","aucun","rien"],ans:3},
+    {q:"Passé composé označava radnju koja je?",opts:["Trajanje","Jednokratna završena","Navika","Hipoteza"],ans:1},
+    {q:"Gérondif od «manger»?",opts:["mangeant","en mangeant","à manger","de manger"],ans:1},
+    {q:"Pronom relatif «dont» zamenjuje?",opts:["Subjekat","Direktni obj.","de + imenica","Mesto"],ans:2},
+    {q:"«Je voudrais» je koji glagolski oblik?",opts:["imparfait","futur","subjonctif","conditionnel présent"],ans:3},
+    {q:"Posle negacije, «du pain» postaje?",opts:["du pain","de pain","le pain","de la pain"],ans:1},
+    {q:"«Venir de + inf.» označava?",opts:["Buduću radnju","Radnju koja se upravo završila","Naviku","Nameru"],ans:1},
+    {q:"Futur proche gradi se sa?",opts:["futur simple","aller + inf.","présent + -rai","venir de + inf."],ans:1},
+    {q:"Koji član za profesiju: «Il est ___ médecin»?",opts:["le","un","— (bez člana)","du"],ans:2},
+    {q:"«à Paris» ali «en France» — pravilo?",opts:["Uvek à","Grad→à, zemlja fem.→en, muš.→au","Uvek en","Po abecednom redu"],ans:1},
+    {q:"«par» u pasivnoj formi uvodi?",opts:["Mesto","Agens (vršilac)","Vreme","Cilj"],ans:1},
+    {q:"Pronom «qui» vrši ulogu?",opts:["Direktnog obj.","Subjekta","Indirektnog obj.","Mesta"],ans:1},
+    {q:"«Il ne mange que des légumes» znači?",opts:["Ne jede povrće","Jede samo povrće","Jede malo","Ne voli"],ans:1},
+    {q:"«J'ai mal depuis lundi» — zašto présent?",opts:["Greška","Bol je završena","Bol TRAJE do sada","Navika"],ans:2},
+    {q:"«De plus» je konektor za?",opts:["Uzrok","Suprotnost","Dopunu","Zaključak"],ans:2},
+    {q:"Discours indirect: «Viens!» → Il lui a demandé de ___",opts:["venir","qu'il vienne","il vient","venant"],ans:0},
+    {q:"Futur simple od «être», 1. l. jed.?",opts:["serai","étais","suis","serais"],ans:0},
+    {q:"«Depuis» vs «pendant» — razlika?",opts:["Nema razlike","depuis=traje do sada, pendant=završeno","pendant=traje","oba ista"],ans:1},
+    {q:"«dans un an» vs «en un an» — razlika?",opts:["Nema razlike","dans=za godinu (od sada), en=trajanje od godinu dana","en=u budućnosti","oba trajanje"],ans:1},
+    {q:"«Bien qu'il ___ fatigué, il continue.» — subjonctif od être?",opts:["est","était","soit","serait"],ans:2},
+    {q:"Conditionnel passé od «venir», 2. l. jed.?",opts:["tu venais","tu seras venu","tu serais venu","tu étais venu"],ans:2},
+    {q:"«Ne…que» znači?",opts:["Ništa","Nikad","Samo (restriktivna)","Niko"],ans:2},
+    {q:"«Il y a 3 ans» znači?",opts:["Za 3 godine","Pre 3 godine","Tokom 3 godine","3 puta"],ans:1},
+    {q:"Infinitif passé gradi se sa?",opts:["après + inf.","avant de + inf.","après avoir/être + p.p.","en + p.p."],ans:2},
+    {q:"Imparfait se koristi za?",opts:["Jednokratnu završenu","Opis i naviku u prošlosti","Hipotezu","Naredbu"],ans:1},
+    {q:"«Après avoir mangé, il se repose.» Ko je jeo?",opts:["Neko drugi","Isti kao u gl. rečenici","Nepoznat","Svejedno"],ans:1},
+    {q:"Slaganje: «Les filles sont ___ (partir)»?",opts:["parti","partis","parties","parte"],ans:2},
+    {q:"«Cependant» je konektor za?",opts:["Uzrok","Posledicu","Suprotnost","Dopunu"],ans:2},
+    {q:"«Si + imparfait» → glavna rečenica u?",opts:["futur","présent","conditionnel présent","subjonctif"],ans:2},
+    {q:"«À condition que» okida?",opts:["Indicatif","Conditionnel","Subjonctif","Infinitif"],ans:2},
+  ],
+  fraze:[
+    {q:"Kako se naručuje ljubazno: «Hteo bih kafu»?",opts:["Je veux un café.","Je prends un café.","Je voudrais un café.","Donnez-moi un café."],ans:2},
+    {q:"«Gardez la monnaie» kažeš kada?",opts:["Nemaš sitnog","Daješ napojnicu","Tražiš kusur","Nema kasirice"],ans:1},
+    {q:"Kako se kaže «Račun, molim»? (restoran)",opts:["La facture, SVP.","L'addition, SVP.","Le billet, SVP.","Le prix, SVP."],ans:1},
+    {q:"«J'ai mal à la tête» — prevedi",opts:["Glava mi je teška","Boli me glava","Imam problem s glavom","Moja glava boli"],ans:1},
+    {q:"«Vous pouvez me faire un geste commercial ?» znači?",opts:["Možete li mi pomoći?","Možete li mi dati popust?","Možete li gestikulirati?","Možete li nešto pokazati?"],ans:1},
+    {q:"«C'est compris ?» u restoranu znači?",opts:["Razumete li?","Je li to uključeno u cenu?","Jeste li izabrali?","Je li ukusno?"],ans:1},
+    {q:"«Où se trouve le rayon… ?» pita se u?",opts:["Restoranu","Robnoj kući / supermarketu","Banci","Hotelu"],ans:1},
+    {q:"«Ne quittez pas» po telefonu znači?",opts:["Odmah poklopite","Ne spuštajte slušalicu","Ne idite","Pozovite ponovo"],ans:1},
+    {q:"«Composez votre billet» znači?",opts:["Kupite kartu","Validujte kartu (pre ukrcaja)","Proverite kartu","Rezervišite"],ans:1},
+    {q:"«Je me suis perdu(e)» znači?",opts:["Nešto sam izgubio","Izgubio/la sam se","Nisam razumeo","Nisam pronašao"],ans:1},
+    {q:"«C'est en vente libre» za lek znači?",opts:["Skupo","Dostupno bez recepta","Na recept","Zabranjeno"],ans:1},
+    {q:"«Ça vous va ?» znači?",opts:["Da li idete?","Da li vam to pristaje/odgovara?","Gde idete?","Kada idete?"],ans:1},
+    {q:"«J'aurais besoin de…» znači?",opts:["Imao/la bih…","Trebalo bi mi…","Hteo/la bih da imam…","Možda bih trebao…"],ans:1},
+    {q:"«Taxi ! Vous êtes libre ?» pita?",opts:["Imate li slobodnog vremena?","Da li ste slobodan taksi?","Koliko košta?","Gde idete?"],ans:1},
+    {q:"«Vous pouvez répéter plus lentement ?» znači?",opts:["Pričajte glasnije!","Ponovite!","Možete li ponoviti sporije?","Pričajte francuski!"],ans:2},
+    {q:"«C'est de ce matin ?» na pijaci pita se za?",opts:["Cenu","Svežinu / datum berbe","Poreklo","Težinu"],ans:1},
+    {q:"Kako rezervišeš sto u restoranu?",opts:["Je veux une table.","Je voudrais réserver une table pour deux.","Réservez-moi une table.","J'ai besoin d'une table."],ans:1},
+    {q:"«Par l'autoroute ou par la nationale ?» pita se u?",opts:["Restoranu","Banci","Taksiju","Apoteci"],ans:2},
+    {q:"«Quel est le taux de change ?» pita se u?",opts:["Supermarketu","Menjačnici ili banci","Restoranu","Hotelu"],ans:1},
+    {q:"«J'ai fait opposition à ma carte» znači?",opts:["Protestujem","Blokirao/la sam karticu","Izgubio/la sam karticu","Menjam PIN"],ans:1},
+    {q:"«Saignant / à point / bien cuit» za?",opts:["Tip kafe","Stepen pečenosti mesa","Veličinu porcije","Cenu jela"],ans:1},
+    {q:"«Suite à notre entretien» se koristi u?",opts:["Kafiću","Formalnom poslovnom mejlu","Apoteci","Taksiju"],ans:1},
+    {q:"«Bon appétit» kaže?",opts:["Gost drugom gostu pre jela","Konobar ili domaćin","Gosti kuvaru","Blagajnica"],ans:1},
+    {q:"«Je peux l'essayer ?» se kaže u?",opts:["Restoranu","Prodavnici odeće","Lekaru","Banci"],ans:1},
+    {q:"«Pouvez-vous me réveiller à 7h ?» pita se?",opts:["U kafiću","U hotelu","U banci","U apoteci"],ans:1},
+    {q:"«Il me faut…» znači?",opts:["Idem…","Treba mi…","Hoću…","Nemam…"],ans:1},
+    {q:"«Ça m'est égal» znači?",opts:["Nije mi jednako","Svejedno mi je","Super mi je","Ne razumem"],ans:1},
+    {q:"«Je me permets de vous contacter» koristi se u?",opts:["Uz prijatelje","U poslovnom pismu / cold outreach","U kafiću","Kod doktora"],ans:1},
+    {q:"«Cordialement» se stavlja na kraju?",opts:["Neformalnog SMS-a","Poslovnog mejla","Restoranske narudžbine","Kupovne liste"],ans:1},
+    {q:"«Avez-vous des sacs réutilisables ?» pita se u?",opts:["Apoteci","Supermarketu ili prodavnici","Banci","Taksiju"],ans:1},
+    {q:"«Je voudrais prolonger mon séjour» kaže se?",opts:["Pri dolasku u hotel","Kada hoćeš da ostaneš duže","Pri odlasku","U banci"],ans:1},
+    {q:"«En ce qui concerne» uvodi?",opts:["Zaključak","Novu temu razgovora","Suprotnost","Uzrok"],ans:1},
+    {q:"«Il n'y a pas de quoi» znači?",opts:["Nema ništa","Nema na čemu","Nema mesta","Nema šanse"],ans:1},
+    {q:"«On y va ?» znači?",opts:["Gde idemo?","Idemo? (predlog)","Ko ide?","Zašto idemo?"],ans:1},
+    {q:"«Avoir du pain sur la planche» znači?",opts:["Voleti hleb","Imati puno posla","Biti pekar","Biti gladan"],ans:1},
+    {q:"«C'est pour offrir» kažeš prodavcu jer?",opts:["Hoćeš popust","Hoćeš lepo pakovanje za poklon","Nema plastičnih kesa","Misliš da je skupo"],ans:1},
+    {q:"«Il fait beau» znači?",opts:["Lepo je vreme","On izgleda lepo","Lepo se oseća","Lepo radi"],ans:0},
+    {q:"«J'en ai assez!» znači?",opts:["Imam dovoljno","Dosta mi je!","Imam nekoliko","Uzimam nešto"],ans:1},
+    {q:"«Ça marche!» znači?",opts:["Hoda","Važi! / Funkcioniše!","Počnimo","Ide"],ans:1},
+    {q:"«Une quinzaine» znači?",opts:["Tačno 15","Petnaestak","Između 10 i 20","Oko 50"],ans:1},
+  ],
+  mix:[
+    {q:"«Si + imparfait» → glavna rečenica u?",opts:["futur","présent","conditionnel présent","subjonctif"],ans:2},
+    {q:"«Composter le billet» — kada je OBAVEZNO?",opts:["Samo u avionima","Pre ulaska u voz u Francuskoj","Samo za TGV","Samo za metro"],ans:1},
+    {q:"«La carte» vs «le menu» u restoranu?",opts:["Nema razlike","carte=slobodan, menu=fiksni","menu=slobodan, carte=fiksni","carte za piće"],ans:1},
+    {q:"«J'ai mal depuis lundi» — zašto présent?",opts:["Greška","Bol je završena","Bol TRAJE do sada","Navika"],ans:2},
+    {q:"«Le rez-de-chaussée» je?",opts:["Podrum","Prizemlje","Prvi sprat","Drugi sprat"],ans:1},
+    {q:"Passé composé od «partir», 1. l. jed.?",opts:["j'ai parti","je suis parti(e)","j'étais parti","je partis"],ans:1},
+    {q:"«Les lits jumeaux» vs «lit double»?",opts:["Ista stvar","jumeaux=2 odvojena, double=1 veliki","double=2 odvojena","po ceni"],ans:1},
+    {q:"Posle negacije, «du pain» postaje?",opts:["du pain","de pain","le pain","pas pain"],ans:1},
+    {q:"«Venir de + inf.» znači?",opts:["Ići da","Upravo završiti","Hteti da","Planirati"],ans:1},
+    {q:"«Le RIB» je?",opts:["Bankarska kartica","Bankovni identifikator","PIN kod","Izvod"],ans:1},
+    {q:"«La nuitée» je?",opts:["Noćni klub","Cena za jedno noćenje","Noćna smena","Večernji meni"],ans:1},
+    {q:"«Il faut que» okida?",opts:["Indicatif","Conditionnel","Subjonctif","Infinitif"],ans:2},
+    {q:"«De plus» je konektor za?",opts:["Uzrok","Suprotnost","Dopunu","Zaključak"],ans:2},
+    {q:"«Taxi ! Vous êtes libre ?» pita?",opts:["Imate li slobodnog vremena?","Da li ste slobodan taksi?","Koliko košta?","Gde idete?"],ans:1},
+    {q:"«La posologie» je?",opts:["Rok trajanja","Uputstvo za upotrebu","Naziv leka","Cena"],ans:1},
+    {q:"«Conditionnel passé» od «venir», 1. l. jed.?",opts:["je venais","je serai venu","je serais venu","j'étais venu"],ans:2},
+    {q:"«Ça vous va ?» u prodavnici znači?",opts:["Gde idete?","Da li vam pristaje/odgovara?","Koliko košta?","Idemo?"],ans:1},
+    {q:"«En vente libre» znači?",opts:["Skupo","Bez recepta","Na recept","Zabranjeno"],ans:1},
+    {q:"Slaganje: «Les filles sont ___ (partir)»?",opts:["parti","partis","parties","parte"],ans:2},
+    {q:"«L'embouteillage» je?",opts:["Fabrika boca","Saobraćajna gužva","Parking","Jednosmerna"],ans:1},
+    {q:"«Depuis» vs «pendant» — koja za ZAVRŠENO trajanje?",opts:["depuis","pendant","pour","il y a"],ans:1},
+    {q:"«Le label rouge» na hrani označava?",opts:["Ekološki proizvod","Oznaku kvaliteta","Sniženu cenu","Uvozni"],ans:1},
+    {q:"«L'IBAN» je?",opts:["Vrsta kartice","Međunarodni br. bankovnog računa","Kod za online banking","Naknada"],ans:1},
+    {q:"«Bon appétit» kaže?",opts:["Gost gostima","Konobar/domaćin gostu","Gosti kuvaru","Kuvari"],ans:1},
+    {q:"«C'est pour offrir» kažeš prodavcu jer?",opts:["Hoćeš popust","Hoćeš lepo pakovanje","Nema kesa","Skupo ti je"],ans:1},
+    {q:"Pronom relatif «où» za?",opts:["Subjekat","Direktni obj.","Mesto ili vreme","de+imenica"],ans:2},
+    {q:"«Il faut que» + ?",opts:["Indicatif","Conditionnel","Subjonctif","Infinitif"],ans:2},
+    {q:"«C'est en promo» znači?",opts:["Novo","Na akciji / popustu","Ekskluzivno","Limitirano"],ans:1},
+    {q:"Kako kažeš «Hteo bih produžiti boravak» u hotelu?",opts:["Je pars demain.","Je voudrais prolonger mon séjour.","Puis-je rester encore?","C'est pour combien?"],ans:1},
+    {q:"«Il y a 2 ans» znači?",opts:["Za 2 godine","Pre 2 godine","Tokom 2 godine","Svake 2 godine"],ans:1},
+    {q:"«Le VTC» je?",opts:["Vrsta TGV-a","Taksi aplikacija (Uber/Bolt)","Gradski autobus","Metro kartica"],ans:1},
+    {q:"«À jeun» znači uzeti lek?",opts:["Posle obroka","Na prazan stomak","Uz puno vode","Pre spavanja"],ans:1},
+    {q:"«dans un an» vs «en un an»?",opts:["Nema razlike","dans=za godinu (od sada), en=trajanje od godinu","en=u budućnosti","oba trajanje"],ans:1},
+    {q:"«Cependant» je konektor za?",opts:["Uzrok","Posledicu","Suprotnost","Dopunu"],ans:2},
+    {q:"«La boucherie» je?",opts:["Pekara","Mesnica","Ribarnica","Mlekara"],ans:1},
+    {q:"«Le péage» je?",opts:["Pumpa","Naplata autoputa","Parking","Motel"],ans:1},
+    {q:"«Faites opposition» znači?",opts:["Aktivirajte karticu","Blokirajte karticu","Zamenite karticu","Obnovite karticu"],ans:1},
+    {q:"«La fromagerie» prodaje?",opts:["Voće","Sir","Meso","Hleb"],ans:1},
+    {q:"«Ne quittez pas» po telefonu?",opts:["Odmah poklopite","Ne spuštajte slušalicu","Ne idite","Pozovite ponovo"],ans:1},
+    {q:"«Gardez la monnaie» kažeš kada?",opts:["Nemaš sitnog","Daješ napojnicu","Tražiš kusur","Nema kasirice"],ans:1},
+  ]
+};
+
+let qCat='vocab', qIdx=0, qScore=0, qAnswered=false, qShuf=[];
+function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;}
+function setQuiz(cat,el){qCat=cat;document.querySelectorAll('.qcat').forEach(b=>b.classList.remove('active'));el.classList.add('active');restartQuiz();}
+function restartQuiz(){qIdx=0;qScore=0;qAnswered=false;qShuf=shuffle(QD[qCat]).slice(0,20);document.getElementById('quiz-main').style.display='block';document.getElementById('qresult').classList.remove('show');renderQ();}
+function renderQ(){
+  const q=qShuf[qIdx],n=qShuf.length;qAnswered=false;
+  document.getElementById('qnum').textContent=`Pitanje ${qIdx+1}/${n}`;
+  document.getElementById('qscore').textContent=`✓ ${qScore} tačnih`;
+  document.getElementById('qpbar').style.width=`${((qIdx+1)/n)*100}%`;
+  document.getElementById('qtext').textContent=q.q;
+  const L=['A','B','C','D'];
+  document.getElementById('qopts').innerHTML=q.opts.map((o,i)=>`<button class="qopt" onclick="checkA(${i})"><span class="qltr">${L[i]}</span>${o}</button>`).join('');
+  const fb=document.getElementById('qfb');fb.className='qfb';fb.textContent='';
+  document.getElementById('qnext').className='qnext';
+}
+function checkA(idx){
+  if(qAnswered)return;qAnswered=true;
+  const q=qShuf[qIdx];
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('qfb');
+  if(idx===q.ans){qScore++;document.querySelectorAll('.qopt')[idx].classList.add('ok');fb.textContent='✓ Tačno! Très bien!';fb.className='qfb ok show';}
+  else{document.querySelectorAll('.qopt')[idx].classList.add('ko');document.querySelectorAll('.qopt')[q.ans].classList.add('ok');fb.textContent=`✗ Netačno. Tačan: ${q.opts[q.ans]}`;fb.className='qfb ko show';}
+  document.getElementById('qscore').textContent=`✓ ${qScore} tačnih`;
+  document.getElementById('qnext').className='qnext show';
+}
+function nextQ(){qIdx++;if(qIdx>=qShuf.length)showRes();else renderQ();}
+function showRes(){
+  document.getElementById('quiz-main').style.display='none';
+  const res=document.getElementById('qresult');res.classList.add('show');
+  const n=qShuf.length,p=(qScore/n)*100;
+  document.getElementById('rnum').textContent=`${qScore}/${n}`;
+  document.getElementById('rmsg').textContent=p===100?'🎉 Parfait! Savršen rezultat!':p>=80?'👏 Très bien! Odlično vladanje gradivom.':p>=60?'👍 Bien! Još malo vežbe.':p>=40?'📚 Pas mal! Vrati se na lekcije.':'💪 Continue! Ponovi gradivo.';
+}
+restartQuiz();
 </script>
 </body>
 </html>
